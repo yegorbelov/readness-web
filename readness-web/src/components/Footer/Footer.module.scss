@@ -1,0 +1,25 @@
+.footer-wrapper {
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgb(from #221a1a r g b / 40%),
+    rgb(from #000000 r g b / 40%)
+  );
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  padding: 20px 0px;
+  border-top: 1px solid #313131;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  width: 1440px;
+  gap: 20px;
+}
+
+.columns {
+  display: flex;
+  gap: 80px;
+}
