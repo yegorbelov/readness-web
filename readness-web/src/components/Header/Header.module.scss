@@ -7,8 +7,11 @@
   top: 0;
   left: 50%;
   translate: -50% 0;
-  width: 1440px;
+  max-width: 1440px;
+  width: calc(100% - 20px);
   z-index: 999;
+  white-space: nowrap;
+  overflow: hidden;
 
   &__logo-text {
     font-size: 64px;
@@ -26,19 +29,24 @@
 
   &__search-placeholder {
     position: absolute;
-    left: 20px;
+    width: 100%;
+    left: 0;
+    padding: 0 20px;
     top: 50%;
     translate: 0 -50%;
     pointer-events: none;
     opacity: 1;
     transition: opacity 0.2s;
     font-size: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__search-input {
     width: 100%;
     height: 100%;
-    margin: 10px 20px;
+    padding: 10px 20px;
   }
 
   &__search-input:focus ~ &__search-placeholder,
@@ -51,5 +59,27 @@
     gap: 20px;
     font-size: 64px;
     text-shadow: 0 4px 10px #000;
+  }
+
+  &__logo {
+    height: 90px;
+  }
+
+  &__logo-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    gap: 0;
+    &__tabs {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    &__logo-text {
+      display: none;
+    }
   }
 }

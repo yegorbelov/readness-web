@@ -17,7 +17,8 @@
 }
 
 .main {
-  width: 1440px;
+  max-width: 1440px;
+  width: calc(100% - 20px);
   margin: 0 auto;
   flex: 1;
   padding: 40px 0px;
@@ -25,19 +26,26 @@
 
 .main-quote {
   position: absolute;
-  font-size: 64px;
   top: 300px;
-  left: 0px;
+  left: 10px;
   text-align: left;
   z-index: 1;
   text-shadow: 0 4px 10px #000;
+  font-size: clamp(32px, 16vw, 64px);
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    text-align: center;
+    left: 50%;
+    translate: -50% 0;
+  }
 }
 
 .main-quote-wrapper {
-  width: 1440px;
+  max-width: 1440px;
+  width: 100%;
   position: absolute;
   left: 50%;
   translate: -50% 0;
   z-index: 9;
-  /* position: relative; */
 }

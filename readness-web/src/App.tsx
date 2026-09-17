@@ -19,7 +19,7 @@ function App() {
         </div>
         <img
           className='reading-girl'
-          src='../src/assets/images/reading-girl.jpg'
+          src='/readness-web/images/reading-girl.jpg'
         />
       </div>
       <div className='main'>

@@ -1,4 +1,11 @@
 .booklist {
   display: flex;
   gap: 24px;
+  width: 100%;
+  overflow: scroll;
+  scroll-snap-type: x proximity;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
