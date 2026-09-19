@@ -17,7 +17,10 @@ export function Header() {
   return (
     <div className={styles.header}>
       <a className={styles['header__logo-wrapper']} href='/'>
-        <img className={styles['header__logo']} src='/icons/logo.svg' />
+        <img
+          className={styles['header__logo']}
+          src={`${import.meta.env.BASE_URL}/icons/logo.svg`}
+        />
         <div className={styles['header__logo-text']}>Readness</div>
       </a>
       <div
@@ -38,7 +41,9 @@ export function Header() {
             <div className={styles['search-results']}>
               {results.map((r) => (
                 <a className={styles['search-result']} href={`/book/${r.id}`}>
-                  <img src={`/books_covers/${r.photo_url}`} />
+                  <img
+                    src={`${import.meta.env.BASE_URL}books_covers/${r.photo_url}`}
+                  />
                   {r.name}
                 </a>
               ))}

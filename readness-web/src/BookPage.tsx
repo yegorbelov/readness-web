@@ -16,17 +16,17 @@ export default function BookPage() {
     <div className={styles['book-page-wrapper']}>
       <img
         className={styles['book-page-wrapper__bg']}
-        src={`/books_covers/${book.photo_url}`}
+        src={`${import.meta.env.BASE_URL}/books_covers/${book.photo_url}`}
       />
       <div className={styles['book-page-wrapper__main']}>
         <div className={styles['book-page-wrapper__cover-wrapper']}>
           <img
             className={styles['book-page-wrapper__cover']}
-            src={`/books_covers/${book.photo_url}`}
+            src={`${import.meta.env.BASE_URL}/books_covers/${book.photo_url}`}
           />
           <img
             className={styles['book-page-wrapper__cover-blur']}
-            src={`/books_covers/${book.photo_url}`}
+            src={`${import.meta.env.BASE_URL}/books_covers/${book.photo_url}`}
           />
         </div>
 
@@ -43,7 +43,7 @@ export default function BookPage() {
               onClick={() => setIsSescOpen(!isDescOpen)}
             >
               <span>read more...</span>
-              <img src='/icons/arrow-down.svg' />
+              <img src={`${import.meta.env.BASE_URL}/icons/arrow-down.svg`} />
             </span>
           </div>
         </div>

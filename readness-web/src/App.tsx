@@ -9,7 +9,7 @@ import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/readness'>
       <Header />
       <Routes>
         <Route path='/' element={<HomePage />} />
