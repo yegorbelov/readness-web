@@ -15,7 +15,7 @@
 
   --sans: 'Alumni Sans SC', system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: 'Alumni Sans SC', system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: 'Alumni Sans SC', ui-monospace, Consolas, monospace;
+  /* --mono: 'Alumni Sans SC', ui-monospace, Consolas, monospace; */
 
   color-scheme: light dark;
   color: var(--text);

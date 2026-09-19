@@ -1,6 +1,4 @@
-import { BookList } from './components/BookList/BookList';
-
-import './App.css';
+import { BookList } from '@/components/BookList/BookList';
 
 function HomePage() {
   return (

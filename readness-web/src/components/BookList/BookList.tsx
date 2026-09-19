@@ -1,10 +1,11 @@
 import BookPreview from './BookPreview';
 import styles from './BookList.module.scss';
-import { fetchBooks } from '../../api/books';
+import { fetchBooks } from '@/api/books';
 import { useState, useEffect } from 'react';
+import type { Book } from '@/types/book';
 
 export function BookList() {
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<Book[]>([]);
 
   useEffect(() => {
     fetchBooks().then(setBooks);
@@ -18,7 +19,6 @@ export function BookList() {
           id={book.id}
           name={book.name}
           photo_url={book.photo_url}
-          // onClick={(e) => onClickHandler(book)}
         />
       ))}
     </div>

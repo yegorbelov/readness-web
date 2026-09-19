@@ -1,17 +1,21 @@
-import styles from './styles.module.scss';
+import styles from '@/styles.module.scss';
 import { useParams } from 'react-router-dom';
-import { fetchBookById } from './api/books';
+import { fetchBookById } from '@/api/books';
 import { useState, useEffect } from 'react';
+import type { Book } from '@/types/book';
 
 export default function BookPage() {
   const { id } = useParams<{ id: string }>();
-  const [book, setBook] = useState({});
+  const [book, setBook] = useState<Book | undefined>(undefined);
 
   const [isDescOpen, setIsSescOpen] = useState(false);
 
   useEffect(() => {
     if (id) fetchBookById(Number(id)).then(setBook);
   }, []);
+
+  if (!book) return <></>;
+
   return (
     <div className={styles['book-page-wrapper']}>
       <img

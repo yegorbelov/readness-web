@@ -1,22 +1,22 @@
-import styles from '../Header/Header.module.scss';
+import styles from './Header.module.scss';
 import { useEffect, useState } from 'react';
-import { searchBooks } from '../../api/books';
+import { searchBooks } from '@/api/books';
+import type { Book } from '@/types/book';
 
 export function Header() {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<Book[]>([]);
 
   useEffect(() => {
     searchBooks(query).then(setResults);
   }, [query]);
 
-  // useEffect(() => {
-  //   console.log(results);
-  // }, [results]);
-
   return (
     <div className={styles.header}>
-      <a className={styles['header__logo-wrapper']} href='/'>
+      <a
+        className={styles['header__logo-wrapper']}
+        href={`${import.meta.env.BASE_URL}`}
+      >
         <img
           className={styles['header__logo']}
           src={`${import.meta.env.BASE_URL}/icons/logo.svg`}
@@ -40,9 +40,12 @@ export function Header() {
           {results && (
             <div className={styles['search-results']}>
               {results.map((r) => (
-                <a className={styles['search-result']} href={`/book/${r.id}`}>
+                <a
+                  className={styles['search-result']}
+                  href={`${import.meta.env.BASE_URL}/book/${r.id}`}
+                >
                   <img
-                    src={`${import.meta.env.BASE_URL}books_covers/${r.photo_url}`}
+                    src={`${import.meta.env.BASE_URL}/books_covers/${r.photo_url}`}
                   />
                   {r.name}
                 </a>
@@ -52,7 +55,7 @@ export function Header() {
         </div>
       </div>
       <div className={styles[`header__tabs`]}>
-        <div>Pricing</div>
+        {/* <div>Pricing</div> */}
         <div>Log In</div>
       </div>
     </div>

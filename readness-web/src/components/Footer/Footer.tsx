@@ -1,5 +1,6 @@
 import styles from './Footer.module.scss';
 import FooterColumns from './FooterColumns';
+import type { FooterColumn } from '@/types/footer';
 
 export default function Footer() {
   const columns = [
@@ -35,7 +36,7 @@ export default function Footer() {
     <div className={styles['footer-wrapper']}>
       <div className={styles['footer']}>
         <div className={styles['columns']}>
-          {columns.map((column) => (
+          {columns.map((column: FooterColumn) => (
             <FooterColumns
               key={column.id}
               title={column.title}
