@@ -42,7 +42,7 @@ export function Header() {
               {results.map((r) => (
                 <a
                   className={styles['search-result']}
-                  href={`${import.meta.env.BASE_URL}/book/${r.id}`}
+                  href={`${import.meta.env.BASE_URL}book/${r.id}`}
                 >
                   <img
                     src={`${import.meta.env.BASE_URL}/books_covers/${r.photo_url}`}

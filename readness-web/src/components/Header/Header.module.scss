@@ -71,6 +71,9 @@
 
   &__logo {
     height: 90px;
+    width: 90px;
+    transition-property: width, opacity;
+    transition-duration: 0.3s;
   }
 
   &__logo-wrapper {
@@ -82,6 +85,11 @@
 
   @media screen and (max-width: 768px) {
     gap: 0;
+    &:has(&__search-input:focus) &__logo,
+    &:has(&__search-input:not(:placeholder-shown)) &__logo {
+      opacity: 0;
+      width: 0;
+    }
     &__tabs {
       display: none;
     }
