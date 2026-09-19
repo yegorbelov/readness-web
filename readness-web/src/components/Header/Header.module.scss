@@ -11,7 +11,6 @@
   width: calc(100% - 20px);
   z-index: 999;
   white-space: nowrap;
-  overflow: hidden;
 
   &__logo-text {
     font-size: 64px;
@@ -20,7 +19,17 @@
 
   &__search {
     flex: 1;
+    min-height: 60px;
     position: relative;
+
+    &--open input {
+      border-bottom: 1px solid #fff;
+    }
+  }
+
+  &__search-inner {
+    position: absolute;
+    width: 100%;
     border: #fff 3px solid;
     border-radius: 30px;
     background: rgb(from #1e1e1e r g b / 40%);
@@ -45,7 +54,6 @@
 
   &__search-input {
     width: 100%;
-    height: 100%;
     padding: 10px 20px;
   }
 
@@ -68,6 +76,8 @@
   &__logo-wrapper {
     display: flex;
     align-items: center;
+    text-decoration: none;
+    color: inherit;
   }
 
   @media screen and (max-width: 768px) {
@@ -81,5 +91,21 @@
     &__logo-text {
       display: none;
     }
+  }
+}
+
+.search-results {
+  // position: absolute;
+}
+
+.search-result {
+  display: flex;
+  padding: 10px 20px;
+  gap: 20px;
+  color: inherit;
+  text-decoration: none;
+
+  img {
+    height: 70px;
   }
 }

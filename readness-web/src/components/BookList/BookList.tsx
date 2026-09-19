@@ -1,28 +1,24 @@
 import BookPreview from './BookPreview';
 import styles from './BookList.module.scss';
+import { fetchBooks } from '../../api/books';
+import { useState, useEffect } from 'react';
 
 export function BookList() {
-  const books = [
-    {
-      id: 1,
-      name: 'The Looming Tower: Al-Qaeda and the Road to 9/11',
-      photo_url: 'The-Looming-Tower.png',
-    },
-    { id: 2, name: 'Run Away With Me', photo_url: 'Run_Away_With_Me.png' },
-    {
-      id: 3,
-      name: 'I Am, I Am, I Am: Seventeen Brushes With Death',
-      photo_url: 'I Am, I Am.png',
-    },
-    { id: 4, name: 'Last Acts', photo_url: 'Last Acts.png' },
-  ];
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    fetchBooks().then(setBooks);
+  }, []);
+
   return (
     <div className={styles['booklist']}>
       {books.map((book) => (
         <BookPreview
           key={book.id}
+          id={book.id}
           name={book.name}
           photo_url={book.photo_url}
+          // onClick={(e) => onClickHandler(book)}
         />
       ))}
     </div>

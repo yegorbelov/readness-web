@@ -1,32 +1,22 @@
 // import { useState } from 'react';
 import { Header } from './components/Header/Header';
-import { BookList } from './components/BookList/BookList';
 import Footer from './components/Footer/Footer';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './HomePage';
+import BookPage from './BookPage';
 
 import './App.css';
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <Header />
-      <div className='main-photo'>
-        <div className='main-quote-wrapper'>
-          <span className='main-quote'>
-            Recomendations you’ve <p />
-            <span className='emphasize'>never</span> experienced{' '}
-            <span className='emphasize'>before</span>
-          </span>
-        </div>
-        <img
-          className='reading-girl'
-          src='/readness-web/images/reading-girl.jpg'
-        />
-      </div>
-      <div className='main'>
-        <BookList />
-      </div>
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/book/:id' element={<BookPage />} />
+      </Routes>
       <Footer />
-    </>
+    </BrowserRouter>
   );
 }
 

@@ -1,13 +1,13 @@
 import styles from './BookPreview.module.scss';
 
-export default function BookList(props: any) {
+export default function BookPreview(props: any) {
   return (
-    <div className={styles['bookpreview']}>
+    <a className={styles['bookpreview']} href={`/book/${props.id}`}>
       <img
         className={styles['bookpreview__cover']}
-        src={`/readness-web/books_covers/${props.photo_url}`}
-      />{' '}
+        src={`/books_covers/${props.photo_url}`}
+      />
       {props.name}
-    </div>
+    </a>
   );
 }
