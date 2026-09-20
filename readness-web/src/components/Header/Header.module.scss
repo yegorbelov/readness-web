@@ -8,9 +8,16 @@
   left: 50%;
   translate: -50% 0;
   max-width: 1440px;
-  width: calc(100% - 20px);
+  width: 100%;
+  padding: 0 10px;
   z-index: 999;
   white-space: nowrap;
+  transition: backdrop-filter 0.3s;
+  flex-wrap: wrap;
+
+  &--open {
+    backdrop-filter: blur(10px);
+  }
 
   &__logo-text {
     font-size: 64px;
@@ -103,6 +110,10 @@
     }
     &__tabs {
       display: none;
+      &--open {
+        display: flex;
+        width: 100%;
+      }
     }
   }
 
@@ -132,5 +143,17 @@
 
   img {
     height: 70px;
+  }
+}
+
+.menu {
+  display: none;
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+
+  height: 50px;
+  img {
+    height: 100%;
   }
 }

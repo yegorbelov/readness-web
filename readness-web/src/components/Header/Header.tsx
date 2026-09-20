@@ -6,13 +6,16 @@ import type { Book } from '@/types/book';
 export function Header({ onLogInClick }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Book[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     searchBooks(query).then(setResults);
   }, [query]);
 
   return (
-    <div className={styles.header}>
+    <div
+      className={`${styles.header} ${isOpen && !results.length ? styles['header--open'] : ''}`}
+    >
       <a
         className={styles['header__logo-wrapper']}
         href={`${import.meta.env.BASE_URL}`}
@@ -56,8 +59,14 @@ export function Header({ onLogInClick }) {
           )}
         </div>
       </div>
-      <div className={styles[`header__tabs`]}>
-        {/* <div>Pricing</div> */}
+      {!results.length && (
+        <button className={styles['menu']} onClick={() => setIsOpen(!isOpen)}>
+          <img src={`${import.meta.env.BASE_URL}/icons/burger-menu.svg`} />
+        </button>
+      )}
+      <div
+        className={`${styles[`header__tabs`]} ${isOpen && !results.length ? styles['header__tabs--open'] : ''}`}
+      >
         <button onClick={onLogInClick}>Log In</button>
       </div>
     </div>
