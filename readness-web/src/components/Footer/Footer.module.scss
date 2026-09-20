@@ -24,4 +24,9 @@
 .columns {
   display: flex;
   gap: 80px;
+
+  @media screen and (max-width: 576px) {
+    flex-direction: column;
+    gap: 0;
+  }
 }
