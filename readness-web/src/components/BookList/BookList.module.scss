@@ -1,9 +1,11 @@
 .booklist {
   display: flex;
   gap: 24px;
-  width: 100%;
+  max-width: fit-content;
+  margin: 0 auto;
   overflow: scroll;
   scroll-snap-type: x proximity;
+  box-sizing: border-box;
 
   &::-webkit-scrollbar {
     display: none;

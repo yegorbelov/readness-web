@@ -43,6 +43,34 @@ const mockBooks: Book[] = [
     description:
       'Tara Westover was seventeen the first time she set foot in a classroom. Born to survivalist parents in the mountains of Idaho, she grew up preparing for the end of the world, not for a future that included education. Educated is her memoir of self-invention through learning.',
   },
+  {
+    id: 7,
+    name: 'Atomic Habits',
+    photo_url: 'atomic-habits.jpg',
+    description:
+      'No matter your goals, Atomic Habits offers a proven framework for improving every day. James Clear reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.',
+  },
+  {
+    id: 8,
+    name: 'Where the Crawdads Sing',
+    photo_url: 'Where the Crawdads Sing.jpg',
+    description:
+      'For years, rumors of the "Marsh Girl" have haunted Barkley Cove. Now Kya Clark is a murder suspect. A painfully beautiful novel about isolation, resilience, and the wild that raised her, weaving together a coming-of-age story with a gripping mystery.',
+  },
+  {
+    id: 9,
+    name: 'The Silent Patient',
+    photo_url: 'The Silent Patient.jpg',
+    description:
+      "Alicia Berenson's life is seemingly perfect. Then one evening she shoots her husband five times and never speaks another word. A psychotherapist becomes obsessed with uncovering her motive, leading to a shocking twist no one sees coming.",
+  },
+  {
+    id: 10,
+    name: 'Circe',
+    photo_url: 'Circe.jpg',
+    description:
+      'In the house of Helios, god of the sun, a strange child is born — Circe. Discovering herself to have the power of witchcraft, she is banished to a deserted island, where she hones her occult craft and comes into her own as a formidable witch.',
+  },
 ];
 
 export async function fetchBooks(): Promise<Book[]> {

@@ -6,6 +6,7 @@ import HomePage from '@/pages/HomePage';
 import BookPage from '@/pages/BookPage';
 
 import '@/App.css';
+import AdminPage from './pages/AdminPage';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/book/:id' element={<BookPage />} />
+        <Route path='/admin' element={<AdminPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
