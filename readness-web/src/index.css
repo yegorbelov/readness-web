@@ -57,3 +57,14 @@ input {
   box-sizing: border-box;
   font-family: 'Alumni Sans SC', sans-serif;
 }
+
+button {
+  background: none;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+body:has(dialog[open]) {
+  overflow: hidden;
+}

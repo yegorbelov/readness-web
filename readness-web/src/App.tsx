@@ -7,11 +7,17 @@ import BookPage from '@/pages/BookPage';
 
 import '@/App.css';
 import AdminPage from './pages/AdminPage';
+import LogInModal from './components/LogInModal/LogInModal';
+import { useState } from 'react';
 
 function App() {
+  const [isLogInModalOpen, setIsLogInModalOpen] = useState(false);
   return (
     <BrowserRouter basename='/readness-web'>
-      <Header />
+      <Header onLogInClick={() => setIsLogInModalOpen(true)} />
+      {isLogInModalOpen && (
+        <LogInModal onClose={() => setIsLogInModalOpen(false)} />
+      )}
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/book/:id' element={<BookPage />} />

@@ -17,13 +17,12 @@
 }
 
 .main {
-  flex: 1;
   padding: 30px 0;
 }
 
 .main-quote {
   position: absolute;
-  top: 300px;
+  top: 250px;
   left: 10px;
   text-align: left;
   z-index: 1;

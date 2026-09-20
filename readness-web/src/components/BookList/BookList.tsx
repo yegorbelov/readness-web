@@ -11,16 +11,20 @@ export function BookList() {
     fetchBooks().then(setBooks);
   }, []);
 
+  const infiniteBooks = [...books, ...books];
+
   return (
-    <div className={styles['booklist']}>
-      {books.map((book) => (
-        <BookPreview
-          key={book.id}
-          id={book.id}
-          name={book.name}
-          photo_url={book.photo_url}
-        />
-      ))}
+    <div className={styles.viewport}>
+      <div className={styles['booklist']}>
+        {infiniteBooks.map((book) => (
+          <BookPreview
+            key={book.id}
+            id={book.id}
+            name={book.name}
+            photo_url={book.photo_url}
+          />
+        ))}
+      </div>
     </div>
   );
 }

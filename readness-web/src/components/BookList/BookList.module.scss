@@ -3,11 +3,32 @@
   gap: 24px;
   max-width: fit-content;
   margin: 0 auto;
-  overflow: scroll;
-  scroll-snap-type: x proximity;
-  box-sizing: border-box;
+  // overflow-x: scroll;
+  width: max-content;
+  // scroll-snap-type: x proximity;
+  animation: marquee 30s linear infinite;
+  padding: 20px 0;
+
+  &:hover {
+    animation-play-state: paused;
+  }
 
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.viewport {
+  width: 100%;
+  overflow-x: hidden;
 }

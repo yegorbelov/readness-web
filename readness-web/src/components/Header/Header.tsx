@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { searchBooks } from '@/api/books';
 import type { Book } from '@/types/book';
 
-export function Header() {
+export function Header({ onLogInClick }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Book[]>([]);
 
@@ -58,7 +58,7 @@ export function Header() {
       </div>
       <div className={styles[`header__tabs`]}>
         {/* <div>Pricing</div> */}
-        <div>Log In</div>
+        <button onClick={onLogInClick}>Log In</button>
       </div>
     </div>
   );
