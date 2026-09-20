@@ -15,6 +15,7 @@
   &__logo-text {
     font-size: 64px;
     text-shadow: 0 4px 10px #000;
+    min-width: 0;
   }
 
   &__search {
@@ -71,24 +72,33 @@
 
   &__logo {
     height: 90px;
-    width: 90px;
-    transition-property: width, opacity;
-    transition-duration: 0.3s;
+    width: auto;
+    max-width: 90px;
+    min-width: 0;
   }
 
   &__logo-wrapper {
-    display: flex;
-    align-items: center;
     text-decoration: none;
     color: inherit;
+    display: grid;
+    grid-template-columns: 1fr;
+    transition: grid-template-columns 0.3s ease;
+    overflow: hidden;
+  }
+
+  &__logo-inner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    min-width: 0;
+    overflow: hidden;
   }
 
   @media screen and (max-width: 768px) {
     gap: 0;
-    &:has(&__search-input:focus) &__logo,
-    &:has(&__search-input:not(:placeholder-shown)) &__logo {
-      opacity: 0;
-      width: 0;
+    &:has(&__search-input:focus) &__logo-wrapper,
+    &:has(&__search-input:not(:placeholder-shown)) &__logo-wrapper {
+      grid-template-columns: 0fr;
     }
     &__tabs {
       display: none;

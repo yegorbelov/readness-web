@@ -17,11 +17,13 @@ export function Header() {
         className={styles['header__logo-wrapper']}
         href={`${import.meta.env.BASE_URL}`}
       >
-        <img
-          className={styles['header__logo']}
-          src={`${import.meta.env.BASE_URL}/icons/logo.svg`}
-        />
-        <div className={styles['header__logo-text']}>Readness</div>
+        <span className={styles['header__logo-inner']}>
+          <img
+            className={styles['header__logo']}
+            src={`${import.meta.env.BASE_URL}/icons/logo.svg`}
+          />
+          <div className={styles['header__logo-text']}>Readness</div>
+        </span>
       </a>
       <div
         className={`${styles['header__search']} ${results.length ? styles['header__search--open'] : ''}`}
