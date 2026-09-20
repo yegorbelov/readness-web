@@ -49,7 +49,7 @@ export function Header() {
                   <img
                     src={`${import.meta.env.BASE_URL}/books_covers/${r.photo_url}`}
                   />
-                  {r.name}
+                  <span>{r.name}</span>
                 </a>
               ))}
             </div>
