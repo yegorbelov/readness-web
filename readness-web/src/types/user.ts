@@ -1,6 +1,8 @@
+export type RoleName = 'user' | 'admin' | 'moderator';
+
 export interface Role {
   id: number;
-  name: string;
+  name: RoleName;
 }
 
 export interface User {

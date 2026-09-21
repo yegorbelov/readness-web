@@ -8,7 +8,14 @@ import {
 import type { AuthTokens, User } from '@/types/user';
 import { getUser } from '@/api/user';
 
-const AuthContext = createContext(undefined);
+interface AuthContextValue {
+  user: User | null;
+  isLoggedIn: boolean;
+  login: (user: User, tokens: AuthTokens) => void;
+  logout: () => void;
+}
+
+const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
