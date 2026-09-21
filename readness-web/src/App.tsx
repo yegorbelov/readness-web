@@ -8,6 +8,7 @@ import AdminPage from '@/pages/AdminPage';
 import { AuthProvider } from '@/contexts/AuthContext';
 import ProfilePage from './pages/ProfilePage';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
+import NotFoundPage from './pages/NotFound';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path='*' element={<NotFoundPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>
