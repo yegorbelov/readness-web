@@ -12,7 +12,7 @@ export default function BookPage() {
 
   useEffect(() => {
     if (id) fetchBookById(Number(id)).then(setBook);
-  }, []);
+  }, [id]);
 
   if (!book) return <></>;
 

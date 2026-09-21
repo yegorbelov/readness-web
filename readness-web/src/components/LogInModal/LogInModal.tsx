@@ -1,8 +1,15 @@
+import { login } from '@/api/user';
 import styles from './LogInModal.module.scss';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function LogInModal({ onClose }) {
   const dialogRef = useRef(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const { login: setAuthUser } = useAuth();
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -17,6 +24,18 @@ export default function LogInModal({ onClose }) {
       }
     };
   }, []);
+
+  function handleLogin() {
+    login(email, password)
+      .then(({ user, tokens }) => {
+        setError('');
+        setAuthUser(user, tokens);
+        dialogRef.current.close();
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+  }
 
   return (
     <div className={styles['bg']}>
@@ -35,18 +54,39 @@ export default function LogInModal({ onClose }) {
           </button>
         </div>
 
-        <div className={styles.modal__inner}>
+        <form
+          className={styles.modal__inner}
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLogin();
+          }}
+        >
           <div className={styles['modal__inner-input']}>
-            <input placeholder='' type='email' />
+            <input
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder=''
+              type='email'
+              name='email'
+              autoComplete='username'
+              value={email}
+            />
             <span className={styles['modal__inner-placeholder']}>Email</span>
           </div>
 
           <div className={styles['modal__inner-input']}>
-            <input placeholder='' type='password' />
+            <input
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder=''
+              type='password'
+              name='password'
+              autoComplete='current-password'
+              value={password}
+            />
             <span className={styles['modal__inner-placeholder']}>Password</span>
           </div>
-        </div>
-        <button>Submit</button>
+          <div className={styles.error}>{error}</div>
+          <button type='submit'>Submit</button>
+        </form>
       </dialog>
     </div>
   );

@@ -1,6 +1,7 @@
 import styles from './FooterColumns.module.scss';
 import type { FooterColumn } from '@/types/footer';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function FooterColumns(props: FooterColumn) {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,9 +19,9 @@ export default function FooterColumns(props: FooterColumn) {
       >
         <div className={styles['links-inner']}>
           {props.links.map((link) => (
-            <a key={link.url} className={styles['anchor']} href={link.url}>
+            <Link key={link.url} className={styles['anchor']} to={link.url}>
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>

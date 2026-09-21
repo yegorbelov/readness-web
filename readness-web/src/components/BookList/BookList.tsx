@@ -16,9 +16,9 @@ export function BookList() {
   return (
     <div className={styles.viewport}>
       <div className={styles['booklist']}>
-        {infiniteBooks.map((book) => (
+        {infiniteBooks.map((book, index) => (
           <BookPreview
-            key={book.id}
+            key={`${book.id}-${index}`}
             id={book.id}
             name={book.name}
             photo_url={book.photo_url}

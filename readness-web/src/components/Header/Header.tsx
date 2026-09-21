@@ -2,11 +2,17 @@ import styles from './Header.module.scss';
 import { useEffect, useState } from 'react';
 import { searchBooks } from '@/api/books';
 import type { Book } from '@/types/book';
+import { useAuth } from '@/contexts/AuthContext';
+import LogInModal from '../LogInModal/LogInModal';
+import { Link } from 'react-router-dom';
 
-export function Header({ onLogInClick }) {
+export function Header() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Book[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isLogInModalOpen, setIsLogInModalOpen] = useState(false);
+
+  const { user, isLoggedIn } = useAuth();
 
   useEffect(() => {
     searchBooks(query).then(setResults);
@@ -16,10 +22,7 @@ export function Header({ onLogInClick }) {
     <div
       className={`${styles.header} ${isOpen && !results.length ? styles['header--open'] : ''}`}
     >
-      <a
-        className={styles['header__logo-wrapper']}
-        href={`${import.meta.env.BASE_URL}`}
-      >
+      <Link className={styles['header__logo-wrapper']} to='/'>
         <span className={styles['header__logo-inner']}>
           <img
             className={styles['header__logo']}
@@ -27,7 +30,7 @@ export function Header({ onLogInClick }) {
           />
           <div className={styles['header__logo-text']}>Readness</div>
         </span>
-      </a>
+      </Link>
       <div
         className={`${styles['header__search']} ${results.length ? styles['header__search--open'] : ''}`}
       >
@@ -45,15 +48,16 @@ export function Header({ onLogInClick }) {
           {results && (
             <div className={styles['search-results']}>
               {results.map((r) => (
-                <a
+                <Link
+                  onClick={() => setQuery('')}
                   className={styles['search-result']}
-                  href={`${import.meta.env.BASE_URL}book/${r.id}`}
+                  to={`/book/${r.id}`}
                 >
                   <img
                     src={`${import.meta.env.BASE_URL}/books_covers/${r.photo_url}`}
                   />
                   <span>{r.name}</span>
-                </a>
+                </Link>
               ))}
             </div>
           )}
@@ -67,8 +71,15 @@ export function Header({ onLogInClick }) {
       <div
         className={`${styles[`header__tabs`]} ${isOpen && !results.length ? styles['header__tabs--open'] : ''}`}
       >
-        <button onClick={onLogInClick}>Log In</button>
+        {isLoggedIn ? (
+          <Link to='/profile'>{user.username}</Link>
+        ) : (
+          <button onClick={() => setIsLogInModalOpen(true)}>Log In</button>
+        )}
       </div>
+      {isLogInModalOpen && (
+        <LogInModal onClose={() => setIsLogInModalOpen(false)} />
+      )}
     </div>
   );
 }

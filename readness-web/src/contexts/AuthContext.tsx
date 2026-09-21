@@ -1,0 +1,57 @@
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from 'react';
+import type { AuthTokens, User } from '@/types/user';
+import { getUser } from '@/api/user';
+
+const AuthContext = createContext(undefined);
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  function init() {
+    const user_id = localStorage.getItem('access_token');
+    if (
+      user_id &&
+      localStorage.getItem('access_token') &&
+      localStorage.getItem('refresh_token')
+    ) {
+      getUser(user_id).then((u) => {
+        setUser(u);
+        console.log(u);
+      });
+    }
+  }
+
+  function logout() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    setUser(null);
+  }
+
+  function login(user: User, tokens: AuthTokens) {
+    setUser(user);
+    localStorage.setItem('access_token', tokens.access_token);
+    localStorage.setItem('refresh_token', tokens.refresh_token);
+  }
+
+  return (
+    <AuthContext.Provider value={{ login, user, isLoggedIn: !!user, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (!context) throw new Error('useAuth must be used withing AuthProvider');
+  return context;
+}
