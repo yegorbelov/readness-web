@@ -20,7 +20,7 @@ export function BookList() {
           <BookPreview
             key={`${book.id}-${index}`}
             id={book.id}
-            name={book.name}
+            name={book.title}
             photo_url={book.photo_url}
           />
         ))}

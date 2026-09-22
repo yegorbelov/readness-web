@@ -18,7 +18,7 @@ export function ProtectedRoute({
     return <Navigate to='/' replace />;
   }
 
-  if (allowedRoles && !allowedRoles.includes(user.role_id.name)) {
+  if (allowedRoles && !allowedRoles.includes(user.role.name)) {
     return <Navigate to='/' replace />;
   }
 

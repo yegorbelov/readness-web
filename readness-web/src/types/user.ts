@@ -1,3 +1,5 @@
+import type { Book } from './book';
+
 export type RoleName = 'user' | 'admin' | 'moderator';
 
 export interface Role {
@@ -9,7 +11,7 @@ export interface User {
   id: number;
   username: string;
   email: string;
-  role_id: Role;
+  role: Role;
   hash_password: string;
 }
 
@@ -21,4 +23,11 @@ export interface AuthTokens {
 export interface LoginResponse {
   user: User;
   tokens: AuthTokens;
+}
+
+export interface UserLibrary {
+  id: number;
+  user: User;
+  book: Book;
+  added_at: string;
 }

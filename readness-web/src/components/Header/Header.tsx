@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { searchBooks } from '@/api/books';
 import type { Book } from '@/types/book';
 import { useAuth } from '@/contexts/AuthContext';
-import LogInModal from '../LogInModal/LogInModal';
+import AuthDialog from '@/components/AuthDialog/AuthDialog';
 import { Link } from 'react-router-dom';
 
 export function Header() {
@@ -57,7 +57,7 @@ export function Header() {
                     <img
                       src={`${import.meta.env.BASE_URL}/books_covers/${r.photo_url}`}
                     />
-                    <span>{r.name}</span>
+                    <span>{r.title}</span>
                   </Link>
                 ))}
               </div>
@@ -74,7 +74,7 @@ export function Header() {
         >
           <div className={`${styles[`header__tabs__tab`]}`}>
             {isLoggedIn ? (
-              <Link to='/profile'>{user.username}</Link>
+              <Link to='/profile'>{user?.username}</Link>
             ) : (
               <button onClick={() => setIsLogInModalOpen(true)}>Log In</button>
             )}
@@ -82,7 +82,7 @@ export function Header() {
         </div>
       </div>
       {isLogInModalOpen && (
-        <LogInModal onClose={() => setIsLogInModalOpen(false)} />
+        <AuthDialog onClose={() => setIsLogInModalOpen(false)} />
       )}
     </>
   );

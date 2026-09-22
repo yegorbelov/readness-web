@@ -61,13 +61,23 @@
     flex-direction: column;
 
     gap: 30px;
-    overflow: hidden;
+    // overflow: hidden;
   }
 
   &__title {
     font-size: 84px;
     text-align: center;
     font-family: 'Jaini', sans-serif;
+    scale: 1;
+    transition: scale 0.3s;
+
+    position: sticky;
+    top: 50px;
+
+    &--stuck {
+      scale: 0.5;
+      text-shadow: $text-shadow-light;
+    }
   }
 
   &__desc-wrapper {
@@ -119,6 +129,32 @@
   min-height: 80vh;
   font-size: 96px;
   @include center;
+
+  &__library {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__library-book {
+    padding: 20px;
+    font-size: 32px;
+    display: flex;
+    gap: 30px;
+    border-bottom: #221a1a solid 1px;
+    transition: background 0.3s;
+
+    img {
+      @include image;
+    }
+
+    &:hover {
+      background: #00000033;
+    }
+  }
+
+  &__library-book-cover {
+    width: 100px;
+  }
 }
 
 .not-found-page {
@@ -137,4 +173,8 @@
 .home-page-link {
   font-size: 96px;
   color: #893838;
+}
+
+.sentinel {
+  height: 0;
 }

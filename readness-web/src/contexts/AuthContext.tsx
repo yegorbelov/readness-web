@@ -12,6 +12,7 @@ interface AuthContextValue {
   user: User | null;
   isLoggedIn: boolean;
   login: (user: User, tokens: AuthTokens) => void;
+  signup: (user: User, tokens: AuthTokens) => void;
   logout: () => void;
 }
 
@@ -31,7 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.getItem('access_token') &&
       localStorage.getItem('refresh_token')
     ) {
-      getUser(user_id).then((u) => {
+      getUser(Number(user_id)).then((u) => {
         setUser(u);
         console.log(u);
       });
@@ -50,8 +51,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('refresh_token', tokens.refresh_token);
   }
 
+  function signup(user: User, tokens: AuthTokens) {
+    setUser(user);
+    localStorage.setItem('access_token', tokens.access_token);
+    localStorage.setItem('refresh_token', tokens.refresh_token);
+  }
+
   return (
-    <AuthContext.Provider value={{ login, user, isLoggedIn: !!user, logout }}>
+    <AuthContext.Provider
+      value={{ login, user, isLoggedIn: !!user, logout, signup }}
+    >
       {children}
     </AuthContext.Provider>
   );

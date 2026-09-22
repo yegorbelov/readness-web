@@ -13,7 +13,8 @@
   font-size: 40px;
   padding: 20px;
   max-width: 100%;
-  width: 400px;
+  min-width: min(400px, 100%);
+  width: max-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,4 +93,10 @@
 .error {
   font-size: 24px;
   color: red;
+}
+
+.fallback {
+  display: flex;
+  gap: 100px;
+  width: fit-content;
 }
