@@ -62,19 +62,28 @@ export default function BookPage() {
             {book.title}
           </div>
 
-          <div className={styles['book-page-wrapper__desc-wrapper']}>
+          <div
+            className={`${styles['book-page-wrapper__desc-wrapper']} ${isDescOpen ? styles['book-page-wrapper__desc-wrapper--open'] : ''}`}
+          >
             <div
-              className={`${styles['book-page-wrapper__desc']} ${!isDescOpen ? `${styles['book-page-wrapper__desc--closed']}` : ''}`}
+              className={`${styles['mask']} ${isDescOpen ? styles['mask--open'] : ''}`}
             >
-              {book.description}
+              <div
+                className={`${styles['book-page-wrapper__desc']} ${!isDescOpen ? `${styles['book-page-wrapper__desc--closed']}` : ''}`}
+              >
+                {book.description}
+              </div>
             </div>
-            <span
-              className={styles['read_more']}
+            <button
+              className={`${styles['read_more']} ${isDescOpen ? styles['read_more--open'] : ''}`}
               onClick={() => setIsSescOpen(!isDescOpen)}
             >
-              <span>read more...</span>
-              <img src={`${import.meta.env.BASE_URL}/icons/arrow-down.svg`} />
-            </span>
+              <span>{`read ${isDescOpen ? 'less' : 'more...'}`}</span>
+              <img
+                className={`${styles['read_more__arrow']}`}
+                src={`${import.meta.env.BASE_URL}/icons/arrow-down.svg`}
+              />
+            </button>
           </div>
         </div>
       </div>

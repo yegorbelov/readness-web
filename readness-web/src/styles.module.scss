@@ -59,6 +59,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    padding-bottom: 30px;
 
     gap: 30px;
     // overflow: hidden;
@@ -82,14 +83,20 @@
 
   &__desc-wrapper {
     position: relative;
-    overflow: hidden;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s ease;
+
+    &--open {
+      grid-template-rows: 1fr;
+    }
   }
 
   &__desc {
     font-family: 'Inika', serif;
     font-size: 32px;
     overflow: hidden;
-    max-height: 100%;
+    min-height: fit-content;
 
     &--closed {
       mask-image: linear-gradient(
@@ -107,18 +114,30 @@
   position: absolute;
   bottom: 0px;
   left: 50%;
-  translate: -50% 0;
+  translate: -50% 100%;
   font-size: 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-shadow: $text-shadow-dark;
+  opacity: 1;
+  transition: opacity 0.3s;
+
+  &__arrow {
+    height: 30px;
+    transition: rotate 0.3s;
+    rotate: 0deg;
+  }
+
+  &--open {
+    opacity: 0.5;
+    .read_more__arrow {
+      rotate: 180deg;
+    }
+  }
 
   span {
     font-family: 'Inika', serif;
-  }
-
-  img {
-    height: 30px;
   }
 }
 
@@ -177,4 +196,32 @@
 
 .sentinel {
   height: 0;
+}
+
+@property --mask-end {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 30%;
+}
+
+.mask {
+  min-height: 200px;
+  max-height: 400px;
+  overflow: hidden;
+
+  --mask-end: 0%;
+
+  mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black var(--mask-end),
+    transparent 100%
+  );
+
+  transition: --mask-end 0.9s ease;
+
+  &--open {
+    --mask-end: 100%;
+    max-height: 600px;
+  }
 }
