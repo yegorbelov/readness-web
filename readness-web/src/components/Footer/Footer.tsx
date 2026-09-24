@@ -45,7 +45,7 @@ export default function Footer() {
           ))}
         </div>
         <div className={styles['copyright']}>
-          Copyright © 2026 Readness All rights reserved.
+          Copyright © {new Date().getFullYear()} Readness All rights reserved.
         </div>
       </div>
     </div>

@@ -5,11 +5,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inika:wght@400;700&display=swap');
 
 .book-page-wrapper {
-  max-width: 1440px;
-  width: 100%;
+  @include center;
   padding-top: calc(90px + 60px);
   padding-bottom: 60px;
-  margin: 0 auto;
 
   &__bg {
     position: fixed;
@@ -28,6 +26,7 @@
 
     @media screen and (max-width: 1024px) {
       padding: 0 20px;
+      gap: 20px;
       flex-direction: column;
       align-items: center;
     }
@@ -48,10 +47,11 @@
 
   &__cover-wrapper {
     position: relative;
+    width: clamp(100px, 500px, 100%);
 
     img {
-      width: 500px;
-      max-width: 100%;
+      // width: 500px;
+      width: 100%;
     }
   }
 
@@ -70,13 +70,25 @@
     text-align: center;
     font-family: 'Jaini', sans-serif;
     scale: 1;
-    transition: scale 0.3s;
+    // line-height: 0.8;
+    transition-property: scale, font-size, line-height;
+    transition-duration: 0.3s;
+
+    // @include text;
 
     position: sticky;
     top: 50px;
-
+    // @include text;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
     &--stuck {
-      scale: 0.5;
+      @include text;
+      // line-height: 1;
+
+      // scale: 0.5;
+      font-size: 48px;
       text-shadow: $text-shadow-light;
     }
   }
@@ -141,6 +153,26 @@
   }
 }
 
+.title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  align-items: center;
+
+  span {
+    white-space: nowrap;
+    min-width: 0;
+    flex-shrink: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  button {
+    flex: 0 0 auto;
+  }
+}
+
 .profile-page {
   padding-top: $safe-area-top;
   display: flex;
@@ -152,6 +184,7 @@
   &__library {
     display: flex;
     flex-direction: column;
+    transition: flex 1s;
   }
 
   &__library-book {
@@ -160,7 +193,12 @@
     display: flex;
     gap: 30px;
     border-bottom: #221a1a solid 1px;
-    transition: background 0.3s;
+    height: 200px;
+    overflow: hidden;
+    opacity: 1;
+    transition-property:
+      background, height, opacity, border-color, padding-top, padding-bottom;
+    transition-duration: 0.2s;
 
     img {
       @include image;
@@ -169,10 +207,62 @@
     &:hover {
       background: #00000033;
     }
+
+    &.removing {
+      height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      opacity: 0;
+      border-color: transparent;
+    }
   }
 
   &__library-book-cover {
+    height: 150px;
     width: 100px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.authors-wrapper {
+  flex-shrink: 0;
+  display: flex;
+  color: #999;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+
+  span {
+    display: inline;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.authors {
+  flex-shrink: 0;
+  display: block;
+  color: #999;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+
+  span {
+    display: inline;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -195,7 +285,9 @@
 }
 
 .sentinel {
-  height: 0;
+  // background-color: red;
+  // height: 40px;
+  // width: 100%;
 }
 
 @property --mask-end {
@@ -222,6 +314,6 @@
 
   &--open {
     --mask-end: 100%;
-    max-height: 600px;
+    max-height: max-content;
   }
 }

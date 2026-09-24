@@ -2,7 +2,7 @@ import styles from '@/styles.module.scss';
 import { useParams } from 'react-router-dom';
 import { fetchBookById } from '@/api/books';
 import { useState, useEffect, useRef } from 'react';
-import type { Book } from '@/types/book';
+import type { Author, Book } from '@/types/book';
 
 export default function BookPage() {
   const { id } = useParams<{ id: string }>();
@@ -22,6 +22,7 @@ export default function BookPage() {
       },
       {
         threshold: 0,
+        rootMargin: '-0px 0px 0px 0px',
       },
     );
 
@@ -60,6 +61,14 @@ export default function BookPage() {
             className={`${styles['book-page-wrapper__title']} ${isSticky ? styles['book-page-wrapper__title--stuck'] : ''}`}
           >
             {book.title}
+          </div>
+          <div className={styles['authors-wrapper']}>
+            {book?.authors?.map((author: Author, index: number) => (
+              <span key={author.id}>
+                {author.first_name} {author.last_name}
+                {index < book?.authors?.length - 1 && ',\u00A0'}
+              </span>
+            ))}
           </div>
 
           <div
