@@ -12,3 +12,13 @@ export async function publishBookRequest(id: string): Promise {
     method: 'POST',
   });
 }
+
+export async function publishBook(bookId: string): Promise<void> {
+  const response = await apiFetch(`/books/${bookId}/publish`, {
+    method: 'POST',
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to publish book');
+  }
+}

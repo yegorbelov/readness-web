@@ -11,6 +11,8 @@ export default function BookList() {
     fetchBooks().then(setBooks);
   }, []);
 
+  console.log(books);
+
   const infiniteBooks = [...books, ...books];
 
   return (
@@ -21,7 +23,7 @@ export default function BookList() {
             key={`${book.id}-${index}`}
             id={book.id}
             name={book.title}
-            photo_url={book.photo_url}
+            cover_url={book.cover_url}
           />
         ))}
       </div>

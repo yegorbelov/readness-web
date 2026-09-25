@@ -67,17 +67,17 @@ export default function BookPage() {
     <div className={styles['book-page-wrapper']}>
       <img
         className={styles['book-page-wrapper__bg']}
-        src={`${import.meta.env.BASE_URL}books_covers/${book.photo_url}`}
+        src={`${import.meta.env.BASE_URL}books_covers/${book.cover_url}`}
       />
       <div className={styles['book-page-wrapper__main']}>
         <div className={styles['book-page-wrapper__cover-wrapper']}>
           <img
             className={styles['book-page-wrapper__cover']}
-            src={`${import.meta.env.BASE_URL}books_covers/${book.photo_url}`}
+            src={`${import.meta.env.BASE_URL}books_covers/${book.cover_url}`}
           />
           <img
             className={styles['book-page-wrapper__cover-blur']}
-            src={`${import.meta.env.BASE_URL}books_covers/${book.photo_url}`}
+            src={`${import.meta.env.BASE_URL}books_covers/${book.cover_url}`}
           />
         </div>
         <div ref={sentinelRef} className={styles['sentinel']}></div>

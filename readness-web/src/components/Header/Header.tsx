@@ -76,6 +76,10 @@ export default function Header() {
           {isLoggedIn ? (
             <>
               {user?.role.name === 'admin' && <Link to='/admin'>Panel</Link>}
+              {user?.role.name === 'admin' && (
+                <Link to='/moderation/requests'>Requests</Link>
+              )}
+              {user?.role.name === 'admin' && <Link to='/books/new'>NEW</Link>}
               <Link to='/mybooks'>My Books</Link>
               <Link to='/profile'>{user?.username}</Link>
             </>
