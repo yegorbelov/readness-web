@@ -8,7 +8,7 @@ import { ProtectedRoute } from '@/components/ProtectedRoute/ProtectedRoute';
 import HomePage from '@/pages/HomePage/HomePage';
 import ProfilePage from '@/pages/ProfilePage/ProfilePage';
 import BookPage from '@/pages/BookPage/BookPage';
-import AdminPage from '@/pages/AdminPage';
+import AdminPage from '@/pages/AdminPage/AdminPage';
 import NotFoundPage from '@/pages/NotFound/NotFound';
 import MyBooks from './pages/MyBooks/MyBooks';
 
