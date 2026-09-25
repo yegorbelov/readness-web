@@ -1,4 +1,4 @@
-import readingGirl from '@/assets/images/reading-girl.jpg';
+import readingGirl from '@/assets/images/reading-girl.webp';
 
 export const images = {
   readingGirl,
