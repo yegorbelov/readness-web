@@ -1,0 +1,13 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.new-author-page {
+  padding-top: 90px;
+  @include center;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}

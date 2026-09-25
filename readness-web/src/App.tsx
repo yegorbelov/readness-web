@@ -13,6 +13,7 @@ import NotFoundPage from '@/pages/NotFound/NotFound';
 import MyBooks from './pages/MyBooks/MyBooks';
 import NewBookPage from './pages/NewBookPage/NewBookPage';
 import LanguagesPage from './pages/LanguagesPage/LanguagesPage';
+import NewAuthorPage from './pages/NewAuthorPage/NewAuthorPage';
 
 function App() {
   return (
@@ -28,6 +29,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <NewBookPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/authors/new'
+            element={
+              <ProtectedRoute>
+                <NewAuthorPage />
               </ProtectedRoute>
             }
           />

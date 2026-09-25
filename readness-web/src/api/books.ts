@@ -6,7 +6,7 @@ import { apiFetch } from './api';
 export async function fetchBooks(): Promise<Book[]> {
   const response = await apiFetch('/books');
   if (!response.ok) throw new Error('error');
-  console.log(await response.json());
+  // console.log(await response.json());
   return response.json();
 }
 

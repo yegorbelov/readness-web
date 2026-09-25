@@ -37,7 +37,8 @@ export default function BookPage() {
 
   useEffect(() => {
     if (id)
-      fetchBookById(Number(id)).then((e) => {
+      fetchBookById(id).then((e) => {
+        console.log(e);
         setBook(e);
       });
   }, [id, user]);
