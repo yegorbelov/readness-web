@@ -1,19 +1,22 @@
 import { useAuth } from '@/contexts/AuthContext';
 import styles from './MyBooks.module.scss';
 import { getUserLibrary, removeBookFromLibrary } from '@/api/user_library';
-import type { Author } from '@/types/book';
+import type { Author, Book } from '@/types/book';
 import type { UserLibrary } from '@/types/user';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { getUserUploads } from '@/api/books';
 
 export default function MyBooks() {
   const [books, setBooks] = useState<UserLibrary[]>([]);
+  const [uploadedBooks, setUploadedBooks] = useState<Book[]>([]);
   const [removingId, setRemovingId] = useState<number | null>(null);
   const { user } = useAuth();
 
   useEffect(() => {
     if (!user) return;
     getUserLibrary().then(setBooks);
+    getUserUploads().then(setUploadedBooks);
   }, [user]);
 
   function handleRemoveBook(
@@ -32,8 +35,47 @@ export default function MyBooks() {
       setRemovingId(null);
     }, 200);
   }
+  console.log(uploadedBooks);
   return (
     <div className={styles['profile-page']}>
+      <div className={styles['profile-page__uploads']}>
+        <h2>My uploads</h2>
+
+        {uploadedBooks.length === 0 ? (
+          <div>No uploaded books yet</div>
+        ) : (
+          <div className={styles['profile-page__uploads-list']}>
+            {uploadedBooks.map((book) => (
+              <Link
+                key={book.book_id}
+                to={`/book/${book.book_id}`}
+                className={styles['profile-page__upload-book']}
+              >
+                <div className={styles['profile-page__upload-book-cover']}>
+                  {book.cover_url ? (
+                    <img
+                      src={`${import.meta.env.VITE_API_URL}${book.cover_url}`}
+                      alt={book.title}
+                    />
+                  ) : (
+                    <div>No cover</div>
+                  )}
+                </div>
+
+                <div className={styles['content']}>
+                  <div className={styles['title-wrapper']}>
+                    <span>{book.title}</span>
+
+                    <span>{book.is_public ? 'Published' : 'Pending'}</span>
+                  </div>
+
+                  <span>{book.description}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
       <div>My Books</div>
       <div className={styles['profile-page__library']}>
         {books.map((b: UserLibrary) => {

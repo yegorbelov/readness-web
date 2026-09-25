@@ -10,20 +10,14 @@ export async function fetchBooks(): Promise<Book[]> {
   return response.json();
 }
 
-export async function fetchBookById(
-  id: number,
-): Promise<BookDetails | undefined> {
-  const book = mockBooks.find((b) => b.id === id);
-  if (!book) throw new Error('book now found');
+export async function fetchBookById(id: string): Promise<BookDetails> {
+  const response = await apiFetch(`/books/${id}`);
 
-  const userId = Number(localStorage.getItem('access_token'));
+  if (!response.ok) {
+    throw new Error('Book not found');
+  }
 
-  if (!userId) return book;
-
-  const library = mockUserLibrary.find(
-    (entry) => entry.book.id === id && entry.user.id === userId,
-  );
-  return { ...book, added_at: library?.added_at, library_id: library?.id };
+  return response.json();
 }
 
 export async function searchBooks(query: string): Promise<Book[]> {
@@ -43,4 +37,11 @@ export async function createNewBook(data: CreateBookRequest): Promise<void> {
   });
 
   if (!response.ok) throw new Error('error');
+}
+
+export async function getUserUploads(): Promise<Book[]> {
+  const response = await apiFetch('/users/me/uploads');
+  if (!response.ok) throw new Error('error');
+  // console.log(await response.json());
+  return response.json();
 }
