@@ -11,6 +11,7 @@ import { getUser } from '@/api/user';
 interface AuthContextValue {
   user: User | null;
   isLoggedIn: boolean;
+  isLoading: boolean;
   login: (user: User, tokens: AuthTokens) => void;
   signup: (user: User, tokens: AuthTokens) => void;
   logout: () => void;
@@ -20,22 +21,28 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     init();
   }, []);
 
-  function init() {
-    const user_id = localStorage.getItem('access_token');
-    if (
-      user_id &&
-      localStorage.getItem('access_token') &&
-      localStorage.getItem('refresh_token')
-    ) {
-      getUser(Number(user_id)).then((u) => {
+  async function init() {
+    const userId = localStorage.getItem('access_token');
+    const accessToken = localStorage.getItem('access_token');
+    const refreshToken = localStorage.getItem('refresh_token');
+
+    if (userId && accessToken && refreshToken) {
+      try {
+        const u = await getUser(Number(userId));
         setUser(u);
-      });
+      } catch {
+        setUser(null);
+      }
     }
+    // setTimeout(() => {
+    setIsLoading(false);
+    // }, 2000);
   }
 
   function logout() {
@@ -58,7 +65,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <AuthContext.Provider
-      value={{ login, user, isLoggedIn: !!user, logout, signup }}
+      value={{ login, user, isLoggedIn: !!user, logout, signup, isLoading }}
     >
       {children}
     </AuthContext.Provider>

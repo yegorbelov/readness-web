@@ -1,0 +1,28 @@
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100svh;
+  opacity: 1;
+  transition: opacity 0.3s;
+
+  &--fading {
+    opacity: 0;
+  }
+
+  &__path {
+    fill: none;
+    stroke-dasharray: var(--path-length);
+    stroke-dashoffset: var(--path-length);
+    animation: draw 1s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: var(--path-length);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}

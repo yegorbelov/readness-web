@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { fetchBookById } from '@/api/books';
 import { useState, useEffect, useRef } from 'react';
 import type { Author, Book } from '@/types/book';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function BookPage() {
   const { id } = useParams<{ id: string }>();
@@ -10,6 +11,7 @@ export default function BookPage() {
   const [isDescOpen, setIsDescOpen] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const [isSticky, setIsSticky] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     const sentinel = sentinelRef.current;
@@ -35,7 +37,9 @@ export default function BookPage() {
     if (id) fetchBookById(Number(id)).then(setBook);
   }, [id]);
 
-  if (!book) return <></>;
+  const isPublic = book?.is_public ?? true;
+
+  if (!book || (!isPublic && book?.uploaded_by?.id !== user?.id)) return <></>;
 
   const authors = book.authors ?? [];
 

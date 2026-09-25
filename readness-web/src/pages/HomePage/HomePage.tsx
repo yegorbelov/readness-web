@@ -13,6 +13,7 @@ function HomePage() {
           </span>
         </div>
         <img
+          draggable={false}
           className={styles['reading-girl']}
           src={`${import.meta.env.BASE_URL}images/reading-girl.jpg`}
         />

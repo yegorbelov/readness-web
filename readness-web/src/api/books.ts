@@ -1,4 +1,5 @@
 import type { Author, Book } from '@/types/book';
+import { mockUsers } from './user';
 
 const authors: Author[] = [
   { id: 1, first_name: 'George', last_name: 'Orwell' },
@@ -13,6 +14,8 @@ const authors: Author[] = [
 export const mockBooks: Book[] = [
   {
     id: 1,
+    is_public: false,
+    uploaded_by: mockUsers[0],
     authors: authors,
     title: 'The Looming Tower: Al-Qaeda and the Road to 9/11',
     photo_url: 'The-Looming-Tower.png',

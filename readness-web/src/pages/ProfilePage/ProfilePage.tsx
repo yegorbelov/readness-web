@@ -1,4 +1,4 @@
-import { getUserLibrary, removeBookFromLibrary } from '@/api/user';
+import { getUserLibrary, removeBookFromLibrary } from '@/api/user_library';
 import { useAuth } from '@/contexts/AuthContext';
 import styles from './ProfilePage.module.scss';
 import type { Author } from '@/types/book';

@@ -1,3 +1,5 @@
+import type { User } from './user';
+
 export interface Author {
   id: number;
   first_name: string;
@@ -27,5 +29,5 @@ export interface Book {
   file_path?: string;
   file_size?: number;
   uploaded_at?: number;
-  uploaded_by?: number;
+  uploaded_by?: User;
 }
