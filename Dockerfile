@@ -2,11 +2,10 @@ FROM oven/bun:1-alpine AS build
 
 WORKDIR /app
 
-COPY package.json bun.lock* ./
+COPY readness-web/package.json readness-web/bun.lock ./
 
-RUN --mount=type=cache,id=bun-cache,target=/root/.bun/install/cache \
-    bun install --frozen-lockfile
+RUN bun install --frozen-lockfile
 
-COPY . .
+COPY readness-web/ .
 
 RUN bun run build
