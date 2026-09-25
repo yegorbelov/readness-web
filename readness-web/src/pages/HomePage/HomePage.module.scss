@@ -6,7 +6,11 @@
   /* object-position: left center; */
   z-index: -1;
   mask-image: linear-gradient(to left, black 0%, transparent 100%);
+
+  -webkit-user-select: none;
   user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
 }
 
 .main-photo {

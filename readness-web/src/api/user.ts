@@ -1,26 +1,5 @@
-import type { LoginResponse, Role, User } from '@/types/user';
-
-const mockRoles: Role[] = [
-  { id: 1, name: 'user' },
-  { id: 2, name: 'admin' },
-];
-
-export const mockUsers: User[] = [
-  {
-    id: 1,
-    username: 'Chloe',
-    email: 'chloe@gmail.com',
-    role: mockRoles[0],
-    hash_password: 'user',
-  },
-  {
-    id: 2,
-    username: 'Jenny',
-    email: 'jenny@gmail.com',
-    role: mockRoles[1],
-    hash_password: 'admin',
-  },
-];
+import type { LoginResponse, User } from '@/types/user';
+import { mockUsers, mockRoles } from './mocks/users';
 
 export async function fetchUsers(): Promise<User[]> {
   return mockUsers;

@@ -10,6 +10,7 @@ import ProfilePage from '@/pages/ProfilePage/ProfilePage';
 import BookPage from '@/pages/BookPage/BookPage';
 import AdminPage from '@/pages/AdminPage';
 import NotFoundPage from '@/pages/NotFound/NotFound';
+import MyBooks from './pages/MyBooks/MyBooks';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/book/:id' element={<BookPage />} />
+          <Route path='/mybooks' element={<MyBooks />} />
           <Route
             path='/admin'
             element={

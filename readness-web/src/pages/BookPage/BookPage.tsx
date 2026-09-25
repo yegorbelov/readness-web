@@ -2,12 +2,14 @@ import styles from './BookPage.module.scss';
 import { useParams } from 'react-router-dom';
 import { fetchBookById } from '@/api/books';
 import { useState, useEffect, useRef } from 'react';
-import type { Author, Book } from '@/types/book';
+import type { Author, BookDetails } from '@/types/book';
 import { useAuth } from '@/contexts/AuthContext';
+import { addBookToLibrary, removeBookFromLibrary } from '@/api/user_library';
+import type { UserLibrary } from '@/types/user';
 
 export default function BookPage() {
   const { id } = useParams<{ id: string }>();
-  const [book, setBook] = useState<Book | undefined>(undefined);
+  const [book, setBook] = useState<BookDetails | undefined>(undefined);
   const [isDescOpen, setIsDescOpen] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const [isSticky, setIsSticky] = useState(false);
@@ -34,8 +36,25 @@ export default function BookPage() {
   }, [book]);
 
   useEffect(() => {
-    if (id) fetchBookById(Number(id)).then(setBook);
-  }, [id]);
+    if (id)
+      fetchBookById(Number(id)).then((e) => {
+        setBook(e);
+      });
+  }, [id, user]);
+
+  function handleAddToList() {
+    if (book.added_at) {
+      removeBookFromLibrary(Number(book.library_id)).then((e) => {
+        setBook((prev) => (prev ? { ...prev, added_at: undefined } : prev));
+      });
+    } else {
+      addBookToLibrary(Number(id), user.id).then((r: UserLibrary) => {
+        setBook((prev) =>
+          prev ? { ...prev, added_at: r.added_at, library_id: r.id } : prev,
+        );
+      });
+    }
+  }
 
   const isPublic = book?.is_public ?? true;
 
@@ -68,6 +87,18 @@ export default function BookPage() {
           >
             {book.title}
           </div>
+          <button
+            onClick={handleAddToList}
+            className={styles['book-page-wrapper__add-to-list']}
+          >
+            <div
+              className={`${styles['book-page-wrapper__heart']} ${book.added_at ? styles['book-page-wrapper__heart--active'] : ''}`}
+              style={{
+                '--heart-mask': `url(${import.meta.env.BASE_URL}icons/heart.svg)`,
+              }}
+            />
+            {book.added_at ? 'remove from list' : 'add to list'}
+          </button>
           <div className={styles['authors-wrapper']}>
             {authors.map((author: Author, index: number) => (
               <span key={author.id}>

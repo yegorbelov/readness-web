@@ -1,16 +1,7 @@
-import { mockBooks } from './books';
+import { mockBooks } from './mocks/books';
+import { mockUsers } from './mocks/users';
 import type { UserLibrary } from '@/types/user';
-import { mockUsers } from './user';
-
-const mockUserLibrary: UserLibrary[] = [
-  { id: 1, user: mockUsers[0], book: mockBooks[0], added_at: '123' },
-  { id: 2, user: mockUsers[0], book: mockBooks[1], added_at: '123' },
-  { id: 3, user: mockUsers[0], book: mockBooks[2], added_at: '123' },
-  { id: 4, user: mockUsers[0], book: mockBooks[3], added_at: '123' },
-  { id: 5, user: mockUsers[0], book: mockBooks[4], added_at: '123' },
-  { id: 6, user: mockUsers[0], book: mockBooks[5], added_at: '123' },
-  { id: 7, user: mockUsers[0], book: mockBooks[6], added_at: '123' },
-];
+import { mockUserLibrary } from './mocks/user_libraries';
 
 export async function getUserLibrary(id: number): Promise<UserLibrary[]> {
   return mockUserLibrary.filter((u) => u.user.id === id);
@@ -22,4 +13,27 @@ export async function removeBookFromLibrary(id: number) {
     throw new Error('not found');
   }
   mockUserLibrary.splice(index, 1);
+}
+
+export async function addBookToLibrary(
+  id: number,
+  user_id: number,
+): Promise<UserLibrary> {
+  const book = mockBooks.find((b) => b.id === id);
+  const newId = mockUserLibrary.length + 1;
+  const user = mockUsers.find((u) => u.id === user_id);
+
+  if (!user) throw new Error('user not found');
+  if (!book) throw new Error('book not found');
+
+  const newBook = {
+    id: newId,
+    user: user,
+    book: book,
+    added_at: Date.now().toString(),
+  };
+
+  mockUserLibrary.push(newBook);
+
+  return newBook;
 }

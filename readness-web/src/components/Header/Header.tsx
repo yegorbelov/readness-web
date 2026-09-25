@@ -72,13 +72,16 @@ export default function Header() {
         <div
           className={`${styles[`header__tabs`]} ${isOpen && !results.length ? styles['header__tabs--open'] : ''}`}
         >
-          <div className={`${styles[`header__tabs__tab`]}`}>
-            {isLoggedIn ? (
+          {/* <div className={`${styles[`header__tabs__tab`]}`}> */}
+          {isLoggedIn ? (
+            <>
+              <Link to='/mybooks'>My Books</Link>
               <Link to='/profile'>{user?.username}</Link>
-            ) : (
-              <button onClick={() => setIsLogInModalOpen(true)}>Log In</button>
-            )}
-          </div>
+            </>
+          ) : (
+            <button onClick={() => setIsLogInModalOpen(true)}>Log In</button>
+          )}
+          {/* </div> */}
         </div>
       </div>
       {isLogInModalOpen && (

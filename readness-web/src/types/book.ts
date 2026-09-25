@@ -28,6 +28,11 @@ export interface Book {
   is_public?: boolean;
   file_path?: string;
   file_size?: number;
-  uploaded_at?: number;
+  uploaded_at?: string;
   uploaded_by?: User;
+}
+
+export interface BookDetails extends Book {
+  added_at?: string;
+  library_id?: number;
 }
