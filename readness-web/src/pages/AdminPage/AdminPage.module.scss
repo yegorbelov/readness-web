@@ -1,0 +1,23 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.admin-page {
+  padding-top: 90px;
+  @include center;
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+      text-align: left;
+      padding: 20px;
+      border-bottom: 1px solid #fff;
+    }
+
+    th {
+      font-weight: 600;
+    }
+  }
+}

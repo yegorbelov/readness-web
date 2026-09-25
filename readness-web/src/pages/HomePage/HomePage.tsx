@@ -1,5 +1,6 @@
 import styles from './HomePage.module.scss';
 import BookList from '@/components/BookList/BookList';
+import { images } from '@/constants/images';
 
 function HomePage() {
   return (
@@ -15,7 +16,7 @@ function HomePage() {
         <img
           draggable={false}
           className={styles['reading-girl']}
-          src={`${import.meta.env.BASE_URL}images/reading-girl.jpg`}
+          src={images.readingGirl}
         />
       </div>
       <div className={styles['main']}>

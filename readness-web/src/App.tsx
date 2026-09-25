@@ -12,6 +12,7 @@ import AdminPage from '@/pages/AdminPage/AdminPage';
 import NotFoundPage from '@/pages/NotFound/NotFound';
 import MyBooks from './pages/MyBooks/MyBooks';
 import NewBookPage from './pages/NewBookPage/NewBookPage';
+import LanguagesPage from './pages/LanguagesPage/LanguagesPage';
 
 function App() {
   return (
@@ -35,6 +36,14 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={['admin']}>
                 <AdminPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/languages'
+            element={
+              <ProtectedRoute allowedRoles={['moderator', 'admin']}>
+                <LanguagesPage />
               </ProtectedRoute>
             }
           />

@@ -1,9 +1,10 @@
 import type { LoginResponse, User } from '@/types/user';
-import { mockUsers } from './mocks/users';
 import { apiFetch } from './api';
 
 export async function fetchUsers(): Promise<User[]> {
-  return mockUsers;
+  const response = await apiFetch('/users');
+  if (!response.ok) throw new Error('error');
+  return response.json();
 }
 
 export async function login(
@@ -51,8 +52,9 @@ export async function getUser(): Promise<User> {
   if (!response.ok) throw new Error('error');
 
   const data = await response.json();
+  console.log(data);
 
-  return { ...data, role: { name: data.role } };
+  return { ...data, role: { name: data.role.name } };
 }
 
 export async function logout(): Promise<void> {

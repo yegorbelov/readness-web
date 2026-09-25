@@ -4,7 +4,10 @@ import { mockBooks } from './mocks/books';
 import { apiFetch } from './api';
 
 export async function fetchBooks(): Promise<Book[]> {
-  return mockBooks;
+  const response = await apiFetch('/books');
+  if (!response.ok) throw new Error('error');
+  console.log(await response.json());
+  return response.json();
 }
 
 export async function fetchBookById(
