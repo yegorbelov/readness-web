@@ -45,3 +45,5 @@ jobs:
           cache-to: type=gha,mode=max,scope=readness-web
           provenance: false
           sbom: false
+          build-args: |
+            VITE_API_URL=${{ vars.VITE_API_URL }}
