@@ -11,7 +11,7 @@ export default function FooterColumns(props: FooterColumn) {
         <div className={styles['title']}>{props.title}</div>
         <img
           className={`${styles['arrow']} ${isOpen ? styles['arrow--open'] : ''}`}
-          src={`${import.meta.env.BASE_URL}/icons/arrow-down.svg`}
+          src={`${import.meta.env.BASE_URL}icons/arrow-down.svg`}
         />
       </div>
       <div

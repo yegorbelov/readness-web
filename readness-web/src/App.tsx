@@ -14,11 +14,12 @@ import MyBooks from './pages/MyBooks/MyBooks';
 import NewBookPage from './pages/NewBookPage/NewBookPage';
 import LanguagesPage from './pages/LanguagesPage/LanguagesPage';
 import NewAuthorPage from './pages/NewAuthorPage/NewAuthorPage';
+import RequestsPage from './pages/RequestsPage/RequestsPage';
 
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter basename='/readness-web'>
+      <BrowserRouter>
         <Header />
         <Routes>
           <Route path='/' element={<HomePage />} />
@@ -53,6 +54,14 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={['moderator', 'admin']}>
                 <LanguagesPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/moderation/requests'
+            element={
+              <ProtectedRoute allowedRoles={['moderator', 'admin']}>
+                <RequestsPage />
               </ProtectedRoute>
             }
           />

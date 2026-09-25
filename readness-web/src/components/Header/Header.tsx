@@ -27,7 +27,7 @@ export default function Header() {
           <span className={styles['header__logo-inner']}>
             <img
               className={styles['header__logo']}
-              src={`${import.meta.env.BASE_URL}/icons/logo.svg`}
+              src={`${import.meta.env.BASE_URL}icons/logo.svg`}
             />
             <div className={styles['header__logo-text']}>Readness</div>
           </span>
@@ -55,7 +55,7 @@ export default function Header() {
                     to={`/book/${r.id}`}
                   >
                     <img
-                      src={`${import.meta.env.BASE_URL}/books_covers/${r.photo_url}`}
+                      src={`${import.meta.env.BASE_URL}books_covers/${r.photo_url}`}
                     />
                     <span>{r.title}</span>
                   </Link>

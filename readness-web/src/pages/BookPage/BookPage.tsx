@@ -67,17 +67,17 @@ export default function BookPage() {
     <div className={styles['book-page-wrapper']}>
       <img
         className={styles['book-page-wrapper__bg']}
-        src={`${import.meta.env.BASE_URL}/books_covers/${book.photo_url}`}
+        src={`${import.meta.env.BASE_URL}books_covers/${book.photo_url}`}
       />
       <div className={styles['book-page-wrapper__main']}>
         <div className={styles['book-page-wrapper__cover-wrapper']}>
           <img
             className={styles['book-page-wrapper__cover']}
-            src={`${import.meta.env.BASE_URL}/books_covers/${book.photo_url}`}
+            src={`${import.meta.env.BASE_URL}books_covers/${book.photo_url}`}
           />
           <img
             className={styles['book-page-wrapper__cover-blur']}
-            src={`${import.meta.env.BASE_URL}/books_covers/${book.photo_url}`}
+            src={`${import.meta.env.BASE_URL}books_covers/${book.photo_url}`}
           />
         </div>
         <div ref={sentinelRef} className={styles['sentinel']}></div>
@@ -128,7 +128,7 @@ export default function BookPage() {
               <span>{`read ${isDescOpen ? 'less' : 'more...'}`}</span>
               <img
                 className={`${styles['read_more__arrow']}`}
-                src={`${import.meta.env.BASE_URL}/icons/arrow-down.svg`}
+                src={`${import.meta.env.BASE_URL}icons/arrow-down.svg`}
               />
             </button>
           </div>

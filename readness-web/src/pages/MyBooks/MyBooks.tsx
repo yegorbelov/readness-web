@@ -6,12 +6,27 @@ import type { UserLibrary } from '@/types/user';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getUserUploads } from '@/api/books';
+import { publishBookRequest } from '@/api/book_requests';
 
 export default function MyBooks() {
   const [books, setBooks] = useState<UserLibrary[]>([]);
   const [uploadedBooks, setUploadedBooks] = useState<Book[]>([]);
   const [removingId, setRemovingId] = useState<number | null>(null);
   const { user } = useAuth();
+
+  async function handlePublishRequest(
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: string,
+  ) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      await publishBookRequest(id);
+    } catch (error) {
+      console.error('Failed to request publication:', error);
+    }
+  }
 
   useEffect(() => {
     if (!user) return;
@@ -65,6 +80,11 @@ export default function MyBooks() {
                 <div className={styles['content']}>
                   <div className={styles['title-wrapper']}>
                     <span>{book.title}</span>
+                    <button
+                      onClick={(e) => handlePublishRequest(e, book.book_id)}
+                    >
+                      Request Publication
+                    </button>
 
                     <span>{book.is_public ? 'Published' : 'Pending'}</span>
                   </div>
@@ -91,7 +111,7 @@ export default function MyBooks() {
             >
               <div className={styles['profile-page__library-book-cover']}>
                 <img
-                  src={`${import.meta.env.BASE_URL}/books_covers/${b.book.photo_url}`}
+                  src={`${import.meta.env.BASE_URL}books_covers/${b.book.photo_url}`}
                 />
               </div>
               <div className={styles['content']}>

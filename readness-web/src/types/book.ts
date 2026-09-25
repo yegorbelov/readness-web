@@ -20,7 +20,7 @@ export interface BookStatus {
 export interface Book {
   id: number;
   title: string;
-  photo_url?: string;
+  cover_url?: string;
   description?: string;
   authors?: Author[];
   language?: Language;

@@ -49,7 +49,7 @@ export default function AuthDialog({
             onClick={() => dialogRef.current?.close()}
           >
             <img
-              src={`${import.meta.env.BASE_URL}/icons/cross.svg`}
+              src={`${import.meta.env.BASE_URL}icons/cross.svg`}
               alt='Close'
             />
           </button>

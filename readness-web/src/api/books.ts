@@ -1,12 +1,20 @@
-import type { Book, BookDetails, CreateBookRequest } from '@/types/book';
-import { mockUserLibrary } from './mocks/user_libraries';
+import type {
+  Book,
+  BookDetails,
+  BookIDResponse,
+  CreateBookRequest,
+} from '@/types/book';
+
 import { mockBooks } from './mocks/books';
 import { apiFetch } from './api';
 
 export async function fetchBooks(): Promise<Book[]> {
   const response = await apiFetch('/books');
-  if (!response.ok) throw new Error('error');
-  // console.log(await response.json());
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch books');
+  }
+
   return response.json();
 }
 
@@ -22,12 +30,15 @@ export async function fetchBookById(id: string): Promise<BookDetails> {
 
 export async function searchBooks(query: string): Promise<Book[]> {
   if (!query.trim()) return [];
+
   return mockBooks.filter((b) =>
     b.title.toLowerCase().includes(query.toLowerCase()),
   );
 }
 
-export async function createNewBook(data: CreateBookRequest): Promise<void> {
+export async function createNewBook(
+  data: CreateBookRequest,
+): Promise<BookIDResponse> {
   const response = await apiFetch('/books', {
     method: 'POST',
     headers: {
@@ -36,12 +47,53 @@ export async function createNewBook(data: CreateBookRequest): Promise<void> {
     body: JSON.stringify(data),
   });
 
-  if (!response.ok) throw new Error('error');
+  if (!response.ok) {
+    throw new Error('Failed to create book');
+  }
+
+  return response.json();
+}
+
+export async function uploadBookFile(
+  bookId: string,
+  file: File,
+): Promise<void> {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await apiFetch(`/books/${bookId}/file`, {
+    method: 'PUT',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to upload book file');
+  }
+}
+
+export async function uploadBookCover(
+  bookId: string,
+  file: File,
+): Promise<void> {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await apiFetch(`/books/${bookId}/cover`, {
+    method: 'PUT',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to upload book cover');
+  }
 }
 
 export async function getUserUploads(): Promise<Book[]> {
   const response = await apiFetch('/users/me/uploads');
-  if (!response.ok) throw new Error('error');
-  // console.log(await response.json());
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch user uploads');
+  }
+
   return response.json();
 }
