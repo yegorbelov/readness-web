@@ -11,8 +11,6 @@ export default function BookList() {
     fetchBooks().then(setBooks);
   }, []);
 
-  console.log(books);
-
   const infiniteBooks = [...books, ...books];
 
   return (
@@ -20,8 +18,8 @@ export default function BookList() {
       <div className={styles['booklist']}>
         {infiniteBooks.map((book, index) => (
           <BookPreview
-            key={`${book.id}-${index}`}
-            id={book.id}
+            key={`${book.book_id}-${index}`}
+            id={book.book_id}
             name={book.title}
             cover_url={book.cover_url}
           />

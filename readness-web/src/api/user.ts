@@ -52,7 +52,6 @@ export async function getUser(): Promise<User> {
   if (!response.ok) throw new Error('error');
 
   const data = await response.json();
-  console.log(data);
 
   return { ...data, role: { name: data.role.name } };
 }

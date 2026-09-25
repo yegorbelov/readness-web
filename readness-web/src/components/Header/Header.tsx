@@ -52,10 +52,10 @@ export default function Header() {
                   <Link
                     onClick={() => setQuery('')}
                     className={styles['search-result']}
-                    to={`/book/${r.id}`}
+                    to={`/book/${r.book_id}`}
                   >
                     <img
-                      src={`${import.meta.env.BASE_URL}books_covers/${r.photo_url}`}
+                      src={`${import.meta.env.VITE_API_URL}${r.cover_url}`}
                     />
                     <span>{r.title}</span>
                   </Link>
@@ -80,6 +80,7 @@ export default function Header() {
                 <Link to='/moderation/requests'>Requests</Link>
               )}
               {user?.role.name === 'admin' && <Link to='/books/new'>NEW</Link>}
+              <Link to='/authors/new'>Authors</Link>
               <Link to='/mybooks'>My Books</Link>
               <Link to='/profile'>{user?.username}</Link>
             </>

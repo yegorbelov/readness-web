@@ -1,24 +1,24 @@
 import type { User } from './user';
 
 export interface Author {
-  id: number;
+  author_id: string;
   first_name: string;
   last_name: string;
 }
 
 export interface Language {
-  id: number;
+  language_id: string;
   name: string;
 }
 
 export interface BookStatus {
-  id: number;
+  id: string;
   user: number;
   status: string;
 }
 
 export interface Book {
-  id: number;
+  book_id: string;
   title: string;
   cover_url?: string;
   description?: string;

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import type { SubmitEvent } from 'react';
 
 import styles from './NewBookPage.module.scss';
 
@@ -28,7 +29,6 @@ export default function NewBookPage() {
     try {
       setIsCreating(true);
 
-      // 1. Сначала создаём книгу
       const { book_id } = await createNewBook({
         author_id: formData.get('author_id') as string,
         description: formData.get('description') as string,
@@ -37,21 +37,17 @@ export default function NewBookPage() {
         title: formData.get('title') as string,
       });
 
-      // 2. Потом загружаем PDF, если он выбран
       const file = formData.get('file');
 
       if (file instanceof File && file.size > 0) {
         await uploadBookFile(book_id, file);
       }
 
-      // 3. Потом загружаем обложку, если она выбрана
       const cover = formData.get('cover');
 
       if (cover instanceof File && cover.size > 0) {
         await uploadBookCover(book_id, cover);
       }
-
-      console.log('Book created:', book_id);
     } catch (error) {
       console.error('Failed to create book:', error);
     } finally {

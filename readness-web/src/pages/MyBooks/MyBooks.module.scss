@@ -9,6 +9,30 @@
   font-size: 96px;
   @include center;
 
+  &__uploads {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__upload-book-cover {
+    height: 300px;
+  }
+
+  &__uploads-list {
+    display: flex;
+    font-size: var(--font-size-4xl);
+    flex-direction: column;
+  }
+
+  &__upload-book {
+    display: flex;
+    overflow: hidden;
+  }
+
+  &__publish-request {
+    color: red;
+  }
+
   &__library {
     display: flex;
     flex-direction: column;

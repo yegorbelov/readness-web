@@ -1,9 +1,4 @@
-import type {
-  Book,
-  BookDetails,
-  BookIDResponse,
-  CreateBookRequest,
-} from '@/types/book';
+import type { Book, BookDetails, CreateBookRequest } from '@/types/book';
 
 import { mockBooks } from './mocks/books';
 import { apiFetch } from './api';
@@ -38,7 +33,7 @@ export async function searchBooks(query: string): Promise<Book[]> {
 
 export async function createNewBook(
   data: CreateBookRequest,
-): Promise<BookIDResponse> {
+): Promise<{ book_id: string }> {
   const response = await apiFetch('/books', {
     method: 'POST',
     headers: {
@@ -79,22 +74,12 @@ export async function uploadBookCover(
   const formData = new FormData();
   formData.append('cover', file, file.name);
 
-  console.log('FILE:', file);
-  console.log('FORM DATA:', [...formData.entries()]);
-
-  const response = await fetch(
-    `${import.meta.env.VITE_API_URL ?? 'http://localhost:8080'}/books/${bookId}/cover`,
-    {
-      method: 'PUT',
-      credentials: 'include',
-      body: formData,
-    },
-  );
-
-  console.log('STATUS:', response.status);
+  const response = await apiFetch(`/books/${bookId}/cover`, {
+    method: 'PUT',
+    body: formData,
+  });
 
   if (!response.ok) {
-    console.log('ERROR:', await response.text());
     throw new Error('Failed to upload book cover');
   }
 }
@@ -107,4 +92,39 @@ export async function getUserUploads(): Promise<Book[]> {
   }
 
   return response.json();
+}
+
+export async function removeBook(id: string) {
+  const response = await apiFetch(`/books/${id}`, { method: 'DELETE' });
+  if (!response.ok) throw new Error('error');
+}
+
+export async function editBook(id: string, data) {
+  const response = await apiFetch(`/books/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) throw new Error('error');
+}
+
+export async function downloadBookFile(bookId: string): Promise<void> {
+  const response = await apiFetch(`/books/${bookId}/download`);
+
+  if (!response.ok) {
+    throw new Error('Failed to download book file');
+  }
+
+  const blob = await response.blob();
+
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement('a');
+
+  link.href = url;
+  link.download = `book-${bookId}.pdf`;
+
+  document.body.appendChild(link);
+  link.click();
+
+  link.remove();
+  window.URL.revokeObjectURL(url);
 }

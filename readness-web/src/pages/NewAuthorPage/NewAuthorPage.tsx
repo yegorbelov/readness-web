@@ -1,5 +1,5 @@
 import styles from './NewAuthorPage.module.scss';
-
+import type { SubmitEvent } from 'react';
 import { createNewAuthor } from '@/api/authors';
 
 export default function NewAuthorPage() {
@@ -12,8 +12,6 @@ export default function NewAuthorPage() {
       first_name: formData.get('first_name') as string,
       last_name: formData.get('last_name') as string,
     });
-
-    console.log('GOOD');
   }
 
   return (

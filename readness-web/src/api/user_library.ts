@@ -8,7 +8,7 @@ export async function getUserLibrary(): Promise<UserLibrary[]> {
   return response.json();
 }
 
-export async function removeBookFromLibrary(id: number) {
+export async function removeBookFromLibrary(id: string) {
   const index = mockUserLibrary.findIndex((entry) => entry.id === id);
   if (index === -1) {
     throw new Error('not found');
@@ -17,5 +17,6 @@ export async function removeBookFromLibrary(id: number) {
 }
 
 export async function addBookToLibrary(id: number): Promise<UserLibrary> {
-  return {};
+  const response = await apiFetch(`/users/me/books/${id}`, { method: 'POST' });
+  if (!response.ok) throw new Error('error');
 }

@@ -32,3 +32,23 @@ export async function createNewAuthor(
     throw new Error('Failed to create author');
   }
 }
+
+export async function getAuthor(id: string): Promise<Author> {
+  const response = await apiFetch(`/authors/${id}`);
+  if (!response.ok) throw new Error('error');
+  return response.json();
+}
+
+export async function updateAuthor(id: string, data): Promise<void> {
+  const response = await apiFetch(`/authors/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) throw new Error('error');
+}
+
+export async function removeAuthor(id: string): Promise<void> {
+  const response = await apiFetch(`/authors/${id}`, { method: 'DELETE' });
+  if (!response.ok) throw new Error('error');
+}
