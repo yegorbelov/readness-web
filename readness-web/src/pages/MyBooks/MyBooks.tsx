@@ -13,7 +13,7 @@ export default function MyBooks() {
 
   useEffect(() => {
     if (!user) return;
-    getUserLibrary(Number(user.id)).then(setBooks);
+    getUserLibrary().then(setBooks);
   }, [user]);
 
   function handleRemoveBook(

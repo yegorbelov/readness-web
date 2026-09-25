@@ -15,9 +15,9 @@ export default function LogInModal({ onSuccess }: LogInModalProps) {
 
   function handleLogin() {
     login(email, password)
-      .then(({ user, tokens }) => {
+      .then(({ user }) => {
         setError('');
-        setAuthUser(user, tokens);
+        setAuthUser(user);
         onSuccess();
       })
       .catch((err) => {

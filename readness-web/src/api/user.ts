@@ -1,5 +1,6 @@
 import type { LoginResponse, User } from '@/types/user';
-import { mockUsers, mockRoles } from './mocks/users';
+import { mockUsers } from './mocks/users';
+import { apiFetch } from './api';
 
 export async function fetchUsers(): Promise<User[]> {
   return mockUsers;
@@ -9,49 +10,53 @@ export async function login(
   email: string,
   password: string,
 ): Promise<LoginResponse> {
-  const user = mockUsers.find((u) => u.email === email);
-  if (!user) throw new Error('user does not exist');
-  if (user.hash_password !== password) throw new Error('wrong password');
+  const response = await apiFetch('/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  });
+  if (!response.ok) throw new Error('user not found');
 
-  return {
-    user,
-    tokens: {
-      access_token: `${user.id}`,
-      refresh_token: `${user.id}`,
-    },
-  };
+  return { user: await getUser() };
 }
 
 export async function signup(
   email: string,
   password: string,
+  username = email.split('@')[0],
 ): Promise<LoginResponse> {
-  if (mockUsers.some((u) => u.email === email)) {
-    throw new Error('user with this email already exists');
-  }
-  const newUser = {
-    id: mockUsers.length + 1,
-    username: email.split('@')[0],
-    email: email,
-    role: mockRoles[0],
-    hash_password: password,
-  };
-
-  mockUsers.push(newUser);
-
-  return {
-    user: newUser,
-    tokens: {
-      access_token: `${newUser.id}`,
-      refresh_token: `${newUser.id}`,
+  const response = await apiFetch('/auth/signup', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  };
+    body: JSON.stringify({
+      email,
+      username,
+      password,
+    }),
+  });
+
+  if (!response.ok) throw new Error('Invalid email or password');
+
+  return { user: await getUser() };
 }
 
-export async function getUser(id: number): Promise<User> {
-  const user = mockUsers.find((u) => u.id === Number(id));
-  if (!user) {
-    throw new Error('user not found');
-  }
-  return user;
+export async function getUser(): Promise<User> {
+  const response = await apiFetch('/users/me');
+
+  if (!response.ok) throw new Error('error');
+
+  return response.json();
+}
+
+export async function logout(): Promise<void> {
+  const response = await apiFetch('/auth/logout', {
+    method: 'POST',
+  });
+
+  if (!response.ok) throw new Error('error');
 }

@@ -6,7 +6,7 @@ import {
   type ReactNode,
 } from 'react';
 import type { AuthTokens, User } from '@/types/user';
-import { getUser } from '@/api/user';
+import { getUser, logout } from '@/api/user';
 
 interface AuthContextValue {
   user: User | null;
@@ -28,44 +28,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   async function init() {
-    const userId = localStorage.getItem('access_token');
-    const accessToken = localStorage.getItem('access_token');
-    const refreshToken = localStorage.getItem('refresh_token');
+    getUser()
+      .then(setUser)
+      .catch(() => setUser(null));
 
-    if (userId && accessToken && refreshToken) {
-      try {
-        const u = await getUser(Number(userId));
-        setUser(u);
-      } catch {
-        setUser(null);
-      }
-    }
-    // setTimeout(() => {
     setIsLoading(false);
-    // }, 2000);
   }
 
-  function logout() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    setUser(null);
+  function logoutUser() {
+    logout().then(() => setUser(null));
   }
 
-  function login(user: User, tokens: AuthTokens) {
+  function login(user: User) {
     setUser(user);
-    localStorage.setItem('access_token', tokens.access_token);
-    localStorage.setItem('refresh_token', tokens.refresh_token);
   }
 
-  function signup(user: User, tokens: AuthTokens) {
+  function signup(user: User) {
     setUser(user);
-    localStorage.setItem('access_token', tokens.access_token);
-    localStorage.setItem('refresh_token', tokens.refresh_token);
   }
 
   return (
     <AuthContext.Provider
-      value={{ login, user, isLoggedIn: !!user, logout, signup, isLoading }}
+      value={{
+        login,
+        user,
+        isLoggedIn: !!user,
+        logout: logoutUser,
+        signup,
+        isLoading,
+      }}
     >
       {children}
     </AuthContext.Provider>

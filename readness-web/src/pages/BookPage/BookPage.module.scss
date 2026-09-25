@@ -154,6 +154,7 @@
   text-shadow: $text-shadow-dark;
   opacity: 1;
   transition: opacity 0.3s;
+  width: max-content;
 
   &__arrow {
     height: 30px;

@@ -22,7 +22,7 @@ export interface AuthTokens {
 
 export interface LoginResponse {
   user: User;
-  tokens: AuthTokens;
+  // tokens?: AuthTokens;
 }
 
 export interface UserLibrary {
