@@ -66,7 +66,7 @@ export default function Header() {
         </div>
         {!results.length && (
           <button className={styles['menu']} onClick={() => setIsOpen(!isOpen)}>
-            <img src={`${import.meta.env.BASE_URL}/icons/burger-menu.svg`} />
+            <img src={`${import.meta.env.BASE_URL}icons/burger-menu.svg`} />
           </button>
         )}
         <div

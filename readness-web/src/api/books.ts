@@ -59,6 +59,7 @@ export async function uploadBookFile(
   file: File,
 ): Promise<void> {
   const formData = new FormData();
+
   formData.append('file', file);
 
   const response = await apiFetch(`/books/${bookId}/file`, {
@@ -76,14 +77,24 @@ export async function uploadBookCover(
   file: File,
 ): Promise<void> {
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append('cover', file, file.name);
 
-  const response = await apiFetch(`/books/${bookId}/cover`, {
-    method: 'PUT',
-    body: formData,
-  });
+  console.log('FILE:', file);
+  console.log('FORM DATA:', [...formData.entries()]);
+
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL ?? 'http://localhost:8080'}/books/${bookId}/cover`,
+    {
+      method: 'PUT',
+      credentials: 'include',
+      body: formData,
+    },
+  );
+
+  console.log('STATUS:', response.status);
 
   if (!response.ok) {
+    console.log('ERROR:', await response.text());
     throw new Error('Failed to upload book cover');
   }
 }
