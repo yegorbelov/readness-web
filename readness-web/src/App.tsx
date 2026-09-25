@@ -1,14 +1,15 @@
-import '@/App.css';
-import { Header } from './components/Header/Header';
-import Footer from './components/Footer/Footer';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomePage from '@/pages/HomePage';
-import BookPage from '@/pages/BookPage';
-import AdminPage from '@/pages/AdminPage';
+
 import { AuthProvider } from '@/contexts/AuthContext';
-import ProfilePage from './pages/ProfilePage';
-import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
-import NotFoundPage from './pages/NotFound';
+import Header from '@/components/Header/Header';
+import Footer from '@/components/Footer/Footer';
+import { ProtectedRoute } from '@/components/ProtectedRoute/ProtectedRoute';
+
+import HomePage from '@/pages/HomePage/HomePage';
+import ProfilePage from '@/pages/ProfilePage/ProfilePage';
+import BookPage from '@/pages/BookPage/BookPage';
+import AdminPage from '@/pages/AdminPage';
+import NotFoundPage from '@/pages/NotFound/NotFound';
 
 function App() {
   return (

@@ -1,0 +1,114 @@
+@use '@/styles/mixins' as *;
+@use '@/styles/variables' as *;
+
+@import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+SC:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jaini&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inika:wght@400;700&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Alumni Sans SC', sans-serif;
+}
+
+:root {
+  --text: #ffffff;
+  --bg: #221717;
+
+  --font-size-xs: 0.75rem;
+  --font-size-base: 1rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 3rem;
+  --font-size-4xl: 4rem;
+
+  --sans: 'Alumni Sans SC', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: 'Alumni Sans SC', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'Alumni Sans SC', ui-monospace, Consolas, monospace;
+
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+html {
+  // font-size: 106.25%;
+}
+body {
+  font-size: 24px;
+}
+
+input {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: var(--font-size-2xl);
+  color: inherit;
+  font-family: inherit;
+}
+
+textarea {
+  background: none;
+  border: none;
+  outline: none;
+  color: inherit;
+  font-size: var(--font-size-2xl);
+  resize: none;
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+svg {
+  display: block;
+  fill: currentColor;
+}
+
+button {
+  background: none;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  width: fit-content;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+dialog {
+  &::backdrop {
+    background: none;
+  }
+}
+
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

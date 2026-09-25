@@ -1,0 +1,98 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.profile-page {
+  padding-top: $safe-area-top;
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+  font-size: 96px;
+  @include center;
+
+  &__library {
+    display: flex;
+    flex-direction: column;
+    transition: flex 1s;
+  }
+
+  &__library-book {
+    padding: 20px;
+    font-size: 32px;
+    display: flex;
+    gap: 30px;
+    border-bottom: #221a1a solid 1px;
+    height: 200px;
+    overflow: hidden;
+    opacity: 1;
+    transition-property:
+      background, height, opacity, border-color, padding-top, padding-bottom;
+    transition-duration: 0.2s;
+
+    img {
+      @include image;
+    }
+
+    &:hover {
+      background: #00000033;
+    }
+
+    &.removing {
+      height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      opacity: 0;
+      border-color: transparent;
+    }
+  }
+
+  &__library-book-cover {
+    height: 150px;
+    width: 100px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+}
+
+.authors {
+  flex-shrink: 0;
+  display: block;
+  color: #999;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+
+  span {
+    display: inline;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  align-items: center;
+
+  span {
+    white-space: nowrap;
+    min-width: 0;
+    flex-shrink: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  button {
+    flex: 0 0 auto;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}

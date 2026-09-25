@@ -4,7 +4,7 @@ import { fetchBooks } from '@/api/books';
 import { useState, useEffect } from 'react';
 import type { Book } from '@/types/book';
 
-export function BookList() {
+export default function BookList() {
   const [books, setBooks] = useState<Book[]>([]);
 
   useEffect(() => {

@@ -32,7 +32,6 @@ const mockUserLibrary: UserLibrary[] = [
   { id: 6, user: mockUsers[0], book: mockBooks[5], added_at: '123' },
   { id: 7, user: mockUsers[0], book: mockBooks[6], added_at: '123' },
 ];
-
 export async function fetchUsers(): Promise<User[]> {
   return mockUsers;
 }

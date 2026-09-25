@@ -1,8 +1,5 @@
-@use '@/styles/mixins' as *;
 @use '@/styles/variables' as *;
-
-@import url('https://fonts.googleapis.com/css2?family=Jaini&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inika:wght@400;700&display=swap');
+@use '@/styles/mixins' as *;
 
 .book-page-wrapper {
   @include center;
@@ -14,7 +11,6 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    // filter: blur(50px);
     opacity: 0.03;
     object-fit: cover;
   }
@@ -62,7 +58,6 @@
     padding-bottom: 30px;
 
     gap: 30px;
-    // overflow: hidden;
   }
 
   &__title {
@@ -73,8 +68,6 @@
     // line-height: 0.8;
     transition-property: scale, font-size, line-height;
     transition-duration: 0.3s;
-
-    // @include text;
 
     position: sticky;
     top: 50px;
@@ -153,85 +146,6 @@
   }
 }
 
-.title-wrapper {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-  align-items: center;
-
-  span {
-    white-space: nowrap;
-    min-width: 0;
-    flex-shrink: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  button {
-    flex: 0 0 auto;
-  }
-}
-
-.profile-page {
-  padding-top: $safe-area-top;
-  display: flex;
-  flex-direction: column;
-  min-height: 80vh;
-  font-size: 96px;
-  @include center;
-
-  &__library {
-    display: flex;
-    flex-direction: column;
-    transition: flex 1s;
-  }
-
-  &__library-book {
-    padding: 20px;
-    font-size: 32px;
-    display: flex;
-    gap: 30px;
-    border-bottom: #221a1a solid 1px;
-    height: 200px;
-    overflow: hidden;
-    opacity: 1;
-    transition-property:
-      background, height, opacity, border-color, padding-top, padding-bottom;
-    transition-duration: 0.2s;
-
-    img {
-      @include image;
-    }
-
-    &:hover {
-      background: #00000033;
-    }
-
-    &.removing {
-      height: 0;
-      padding-top: 0;
-      padding-bottom: 0;
-      opacity: 0;
-      border-color: transparent;
-    }
-  }
-
-  &__library-book-cover {
-    height: 150px;
-    width: 100px;
-    border-radius: 20px;
-    flex-shrink: 0;
-    overflow: hidden;
-  }
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
 .authors-wrapper {
   flex-shrink: 0;
   display: flex;
@@ -249,45 +163,7 @@
   }
 }
 
-.authors {
-  flex-shrink: 0;
-  display: block;
-  color: #999;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  width: 100%;
-
-  span {
-    display: inline;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
-.not-found-page {
-  padding-top: $safe-area-top;
-  @include center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 128px;
-  min-height: 80vh;
-  text-align: center;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.home-page-link {
-  font-size: 96px;
-  color: #893838;
-}
-
 .sentinel {
-  // background-color: red;
-  // height: 40px;
-  // width: 100%;
 }
 
 @property --mask-end {

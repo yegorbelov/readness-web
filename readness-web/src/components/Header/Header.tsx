@@ -6,7 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import AuthDialog from '@/components/AuthDialog/AuthDialog';
 import { Link } from 'react-router-dom';
 
-export function Header() {
+export default function Header() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Book[]>([]);
   const [isOpen, setIsOpen] = useState(false);

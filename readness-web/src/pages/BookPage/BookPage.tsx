@@ -1,4 +1,4 @@
-import styles from '@/styles.module.scss';
+import styles from './BookPage.module.scss';
 import { useParams } from 'react-router-dom';
 import { fetchBookById } from '@/api/books';
 import { useState, useEffect, useRef } from 'react';
@@ -7,7 +7,7 @@ import type { Author, Book } from '@/types/book';
 export default function BookPage() {
   const { id } = useParams<{ id: string }>();
   const [book, setBook] = useState<Book | undefined>(undefined);
-  const [isDescOpen, setIsSescOpen] = useState(false);
+  const [isDescOpen, setIsDescOpen] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const [isSticky, setIsSticky] = useState(false);
 
@@ -37,6 +37,8 @@ export default function BookPage() {
 
   if (!book) return <></>;
 
+  const authors = book.authors ?? [];
+
   return (
     <div className={styles['book-page-wrapper']}>
       <img
@@ -63,10 +65,10 @@ export default function BookPage() {
             {book.title}
           </div>
           <div className={styles['authors-wrapper']}>
-            {book?.authors?.map((author: Author, index: number) => (
+            {authors.map((author: Author, index: number) => (
               <span key={author.id}>
                 {author.first_name} {author.last_name}
-                {index < book?.authors?.length - 1 && ',\u00A0'}
+                {index < authors.length - 1 && ',\u00A0'}
               </span>
             ))}
           </div>
@@ -85,7 +87,7 @@ export default function BookPage() {
             </div>
             <button
               className={`${styles['read_more']} ${isDescOpen ? styles['read_more--open'] : ''}`}
-              onClick={() => setIsSescOpen(!isDescOpen)}
+              onClick={() => setIsDescOpen(!isDescOpen)}
             >
               <span>{`read ${isDescOpen ? 'less' : 'more...'}`}</span>
               <img

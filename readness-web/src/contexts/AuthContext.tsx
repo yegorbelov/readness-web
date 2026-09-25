@@ -34,7 +34,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     ) {
       getUser(Number(user_id)).then((u) => {
         setUser(u);
-        console.log(u);
       });
     }
   }

@@ -20,7 +20,7 @@
   }
 
   &__logo-text {
-    font-size: 64px;
+    font-size: var(--font-size-4xl);
     text-shadow: 0 4px 10px #000;
     min-width: 0;
   }
@@ -73,7 +73,7 @@
   &__tabs {
     display: flex;
     gap: 20px;
-    font-size: 64px;
+    font-size: var(--font-size-4xl);
     text-shadow: 0 4px 10px #000;
 
     // &__tab {
