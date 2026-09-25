@@ -5,15 +5,15 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import type { AuthTokens, User } from '@/types/user';
+import type { User } from '@/types/user';
 import { getUser, logout } from '@/api/user';
 
 interface AuthContextValue {
   user: User | null;
   isLoggedIn: boolean;
   isLoading: boolean;
-  login: (user: User, tokens: AuthTokens) => void;
-  signup: (user: User, tokens: AuthTokens) => void;
+  login: (user: User) => void;
+  signup: (user: User) => void;
   logout: () => void;
 }
 

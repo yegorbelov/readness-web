@@ -1,6 +1,7 @@
-import type { Book, BookDetails } from '@/types/book';
+import type { Book, BookDetails, CreateBookRequest } from '@/types/book';
 import { mockUserLibrary } from './mocks/user_libraries';
 import { mockBooks } from './mocks/books';
+import { apiFetch } from './api';
 
 export async function fetchBooks(): Promise<Book[]> {
   return mockBooks;
@@ -27,4 +28,16 @@ export async function searchBooks(query: string): Promise<Book[]> {
   return mockBooks.filter((b) =>
     b.title.toLowerCase().includes(query.toLowerCase()),
   );
+}
+
+export async function createNewBook(data: CreateBookRequest): Promise<void> {
+  const response = await apiFetch('/books', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) throw new Error('error');
 }

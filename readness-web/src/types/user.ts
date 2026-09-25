@@ -8,11 +8,11 @@ export interface Role {
 }
 
 export interface User {
-  id: number;
+  id: string;
   username: string;
   email: string;
   role: Role;
-  hash_password: string;
+  password: string;
 }
 
 export interface AuthTokens {

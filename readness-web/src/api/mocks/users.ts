@@ -7,17 +7,17 @@ export const mockRoles: Role[] = [
 
 export const mockUsers: User[] = [
   {
-    id: 1,
+    id: '1',
     username: 'Chloe',
     email: 'chloe@gmail.com',
     role: mockRoles[0],
-    hash_password: 'user',
+    password: 'user',
   },
   {
-    id: 2,
+    id: '2',
     username: 'Jenny',
     email: 'jenny@gmail.com',
     role: mockRoles[1],
-    hash_password: 'admin',
+    password: 'admin',
   },
 ];

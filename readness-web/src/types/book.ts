@@ -36,3 +36,11 @@ export interface BookDetails extends Book {
   added_at?: string;
   library_id?: number;
 }
+
+export type CreateBookRequest = {
+  author_id: string;
+  description: string;
+  language_id: string;
+  published_at: string;
+  title: string;
+};

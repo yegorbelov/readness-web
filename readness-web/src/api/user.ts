@@ -50,7 +50,9 @@ export async function getUser(): Promise<User> {
 
   if (!response.ok) throw new Error('error');
 
-  return response.json();
+  const data = await response.json();
+
+  return { ...data, role: { name: data.role } };
 }
 
 export async function logout(): Promise<void> {

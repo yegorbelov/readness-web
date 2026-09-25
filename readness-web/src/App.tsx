@@ -11,6 +11,7 @@ import BookPage from '@/pages/BookPage/BookPage';
 import AdminPage from '@/pages/AdminPage/AdminPage';
 import NotFoundPage from '@/pages/NotFound/NotFound';
 import MyBooks from './pages/MyBooks/MyBooks';
+import NewBookPage from './pages/NewBookPage/NewBookPage';
 
 function App() {
   return (
@@ -21,6 +22,14 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route path='/book/:id' element={<BookPage />} />
           <Route path='/mybooks' element={<MyBooks />} />
+          <Route
+            path='/books/new'
+            element={
+              <ProtectedRoute>
+                <NewBookPage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path='/admin'
             element={

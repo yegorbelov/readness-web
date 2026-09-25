@@ -16,9 +16,9 @@ export default function SignUpModal({ onSuccess }: SignUpModalProps) {
 
   function handleLogin() {
     signup(email, password)
-      .then(({ user, tokens }) => {
+      .then(({ user }) => {
         setError('');
-        setAuthUser(user, tokens);
+        setAuthUser(user);
         onSuccess();
       })
       .catch((err) => {
