@@ -112,3 +112,15 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+select {
+  background: initial;
+  border: initial;
+  outline: initial;
+  font: initial;
+  color: initial;
+}
+
+input[type='file'] {
+  all: revert;
+}

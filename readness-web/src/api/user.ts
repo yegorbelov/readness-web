@@ -63,3 +63,22 @@ export async function logout(): Promise<void> {
 
   if (!response.ok) throw new Error('error');
 }
+
+export async function updateUserRole(
+  userId: string,
+  roleId: number,
+): Promise<void> {
+  const response = await apiFetch(`/users/${userId}/role`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      role_id: roleId,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to update user role');
+  }
+}

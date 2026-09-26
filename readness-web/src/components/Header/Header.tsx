@@ -79,7 +79,7 @@ export default function Header() {
               {user?.role.name === 'admin' && (
                 <Link to='/moderation/requests'>Requests</Link>
               )}
-              {user?.role.name === 'admin' && <Link to='/books/new'>NEW</Link>}
+              <Link to='/books/new'>NEW</Link>
               <Link to='/authors/new'>Authors</Link>
               <Link to='/mybooks'>My Books</Link>
               <Link to='/profile'>{user?.username}</Link>
