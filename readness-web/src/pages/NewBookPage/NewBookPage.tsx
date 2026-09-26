@@ -29,8 +29,10 @@ export default function NewBookPage() {
     try {
       setIsCreating(true);
 
+      const authorIds = formData.getAll('author_id') as string[];
+
       const { book_id } = await createNewBook({
-        author_id: formData.get('author_id') as string,
+        author_ids: authorIds,
         description: formData.get('description') as string,
         language_id: formData.get('language_id') as string,
         published_at: formData.get('published_at') as string,
@@ -63,11 +65,7 @@ export default function NewBookPage() {
       >
         <input name='title' placeholder='Title' required />
 
-        <select name='author_id' defaultValue='' required>
-          <option value='' disabled>
-            Select author
-          </option>
-
+        <select name='author_id' multiple>
           {authors.map((author) => (
             <option key={author.author_id} value={author.author_id}>
               {author.first_name} {author.last_name}
