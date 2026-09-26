@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getUserUploads, removeBook } from '@/api/books';
 import { publishBookRequest } from '@/api/book_requests';
+import { formatRelativeDate } from '@/utils/date';
 
 export default function MyBooks() {
   const [books, setBooks] = useState<UserLibrary[]>([]);
@@ -73,6 +74,7 @@ export default function MyBooks() {
       setRemovingId(null);
     }, 200);
   }
+  console.log('books', books);
 
   return (
     <div className={styles['profile-page']}>
@@ -132,7 +134,7 @@ export default function MyBooks() {
       <div>My Books</div>
       <div className={styles['profile-page__library']}>
         {books.map((b: UserLibrary) => {
-          const authors = b.book?.authors ?? [];
+          const authors = b?.authors ?? [];
           console.log('b', b);
 
           return (
@@ -140,17 +142,19 @@ export default function MyBooks() {
               key={b.id}
               to={`/book/${b.book?.book_id}`}
               className={`${styles['profile-page__library-book']} ${
-                removingId === b.id ? styles['removing'] : ''
+                removingId === b.book_id ? styles['removing'] : ''
               }`}
             >
               <div className={styles['profile-page__library-book-cover']}>
-                <img src={`${import.meta.env.BASE_URL}${b.book?.cover_url}`} />
+                <img src={`${import.meta.env.VITE_API_URL}${b?.cover_url}`} />
               </div>
               <div className={styles['content']}>
                 <div className={styles['title-wrapper']}>
-                  <span>{b.book?.title}</span>
-                  <span>{b.book?.uploaded_at}</span>
-                  <button onClick={(e) => handleRemoveLibraryBook(e, b.id)}>
+                  <span>{b?.title}</span>
+                  <span>{formatRelativeDate(b?.saved_at)}</span>
+                  <button
+                    onClick={(e) => handleRemoveLibraryBook(e, b.book_id)}
+                  >
                     Remove
                   </button>
                 </div>
@@ -167,7 +171,7 @@ export default function MyBooks() {
                     <>No Author</>
                   )}
                 </span>
-                <span>{b.book?.description}</span>
+                <span>{b?.description}</span>
               </div>
             </Link>
           );

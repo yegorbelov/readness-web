@@ -75,10 +75,11 @@ export default function Header() {
           {/* <div className={`${styles[`header__tabs__tab`]}`}> */}
           {isLoggedIn ? (
             <>
-              {user?.role.name === 'admin' && <Link to='/admin'>Panel</Link>}
-              {user?.role.name === 'admin' && (
+              {(user?.role.name === 'admin' ||
+                user?.role.name === 'moderator') && (
                 <Link to='/moderation/requests'>Requests</Link>
               )}
+              {user?.role.name === 'admin' && <Link to='/admin'>Panel</Link>}
               <Link to='/books/new'>NEW</Link>
               <Link to='/authors/new'>Authors</Link>
               <Link to='/mybooks'>My Books</Link>
