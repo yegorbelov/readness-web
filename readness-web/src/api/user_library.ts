@@ -1,4 +1,3 @@
-import { mockUserLibrary } from './mocks/user_libraries';
 import type { UserLibrary } from '@/types/user';
 import { apiFetch } from './api';
 
@@ -9,14 +8,14 @@ export async function getUserLibrary(): Promise<UserLibrary[]> {
 }
 
 export async function removeBookFromLibrary(id: string) {
-  const index = mockUserLibrary.findIndex((entry) => entry.id === id);
-  if (index === -1) {
-    throw new Error('not found');
-  }
-  mockUserLibrary.splice(index, 1);
+  const response = await apiFetch(`/users/me/books/${id}`, {
+    method: 'DELETE',
+  });
+  if (!response.ok) throw new Error('error');
 }
 
 export async function addBookToLibrary(id: number): Promise<UserLibrary> {
   const response = await apiFetch(`/users/me/books/${id}`, { method: 'POST' });
+
   if (!response.ok) throw new Error('error');
 }

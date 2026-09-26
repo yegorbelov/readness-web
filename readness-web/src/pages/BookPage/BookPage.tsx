@@ -4,7 +4,7 @@ import { downloadBookFile, fetchBookById, uploadBookFile } from '@/api/books';
 import { useState, useEffect, useRef } from 'react';
 import type { Author, BookDetails } from '@/types/book';
 import { useAuth } from '@/contexts/AuthContext';
-import { addBookToLibrary } from '@/api/user_library';
+import { addBookToLibrary, removeBookFromLibrary } from '@/api/user_library';
 
 export default function BookPage() {
   const { id } = useParams<{ id: string }>();
@@ -83,18 +83,18 @@ export default function BookPage() {
   }, [id, user]);
 
   function handleAddToList() {
-    addBookToLibrary(id);
-    // if (book?.added_at) {
-    //   removeBookFromLibrary(Number(book.library_id)).then((e) => {
-    //     setBook((prev) => (prev ? { ...prev, added_at: undefined } : prev));
-    //   });
-    // } else {
-    //   addBookToLibrary(Number(id), user.id).then((r: UserLibrary) => {
-    //     setBook((prev) =>
-    //       prev ? { ...prev, added_at: r.added_at, library_id: r.id } : prev,
-    //     );
-    //   });
-    // }
+    console.log('click');
+    if (book?.saved_at) {
+      removeBookFromLibrary(book.book_id).then((e) => {
+        setBook((prev) => (prev ? { ...prev, saved_at: undefined } : prev));
+      });
+    } else {
+      addBookToLibrary(id).then((r: UserLibrary) => {
+        setBook((prev) =>
+          prev ? { ...prev, saved_at: '1', library_id: '1' } : prev,
+        );
+      });
+    }
   }
 
   const isPublic = book?.is_public ?? true;
@@ -157,14 +157,14 @@ export default function BookPage() {
             className={styles['book-page-wrapper__add-to-list']}
           >
             <div
-              className={`${styles['book-page-wrapper__heart']} ${book.added_at ? styles['book-page-wrapper__heart--active'] : ''}`}
+              className={`${styles['book-page-wrapper__heart']} ${book.saved_at ? styles['book-page-wrapper__heart--active'] : ''}`}
               style={
                 {
                   '--heart-mask': `url(${import.meta.env.BASE_URL}icons/heart.svg)`,
                 } as React.CSSProperties
               }
             />
-            {book.added_at ? 'remove from list' : 'add to list'}
+            {book.saved_at ? 'remove from list' : 'add to list'}
           </button>
           <div className={styles['authors-wrapper']}>
             {authors.map((author: Author, index: number) => (
