@@ -2,22 +2,108 @@
 @use '@/styles/mixins' as *;
 
 .admin-page {
+  min-height: 80vh;
   padding-top: 90px;
+
+  display: flex;
+  flex-direction: column;
   @include center;
+}
 
-  &__table {
-    width: 100%;
-    border-collapse: collapse;
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
 
-    th,
-    td {
-      text-align: left;
-      padding: 20px;
-      border-bottom: 1px solid #fff;
+.title {
+  margin: 0;
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 6px 0 0;
+
+  color: #888;
+  font-size: var(--font-size-md);
+}
+
+.count {
+  flex-shrink: 0;
+
+  padding: 6px 10px;
+
+  color: #aaa;
+  background: #ffffff0d;
+
+  font-size: var(--font-size-sm);
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 16px 0px;
+
+    text-align: left;
+
+    border-bottom: 1px solid #ffffff12;
+  }
+
+  th {
+    color: #888;
+
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  tbody tr {
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: #ffffff06;
     }
 
-    th {
-      font-weight: 600;
+    &:last-child td {
+      border-bottom: 0;
     }
   }
+}
+
+.username {
+  font-weight: 500;
+}
+
+.role-select {
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.updating {
+  margin-left: 10px;
+
+  color: #888;
+  font-size: var(--font-size-sm);
+}
+
+.state {
+  min-height: 200px;
+
+  display: grid;
+  place-items: center;
+
+  color: #888;
 }

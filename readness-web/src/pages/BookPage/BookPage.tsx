@@ -131,27 +131,31 @@ export default function BookPage() {
           >
             {book.title}
           </div>
-          <label className={styles['book-page-wrapper__upload']}>
-            {isUploading ? 'uploading...' : 'upload PDF'}
-
-            <input
-              type='file'
-              accept='application/pdf,.pdf'
-              onChange={handleUpload}
-              disabled={isUploading}
-              hidden
-            />
-          </label>
-          {isOwner && (
-            <button
-              type='button'
-              onClick={handleDownload}
-              disabled={isDownloading}
-              className={styles['book-page-wrapper__download']}
+          <div className={styles['book-page-wrapper__pdf-wrapper']}>
+            <label
+              className={styles['book-page-wrapper__upload']}
+              aria-disabled={isUploading}
             >
-              {isDownloading ? 'downloading...' : 'download PDF'}
-            </button>
-          )}
+              <span>{isUploading ? 'uploading...' : 'upload PDF'}</span>
+
+              <input
+                type='file'
+                accept='application/pdf,.pdf'
+                onChange={handleUpload}
+                disabled={isUploading}
+              />
+            </label>
+            {isOwner && (
+              <button
+                type='button'
+                onClick={handleDownload}
+                disabled={isDownloading}
+                className={styles['book-page-wrapper__upload']}
+              >
+                {isDownloading ? 'downloading...' : 'download PDF'}
+              </button>
+            )}
+          </div>
           <button
             onClick={handleAddToList}
             className={styles['book-page-wrapper__add-to-list']}

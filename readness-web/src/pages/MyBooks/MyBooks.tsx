@@ -9,12 +9,14 @@ import { getUserUploads, removeBook } from '@/api/books';
 import { publishBookRequest } from '@/api/book_requests';
 import { formatRelativeDate } from '@/utils/date';
 
+type Tab = 'uploads' | 'library';
+
 export default function MyBooks() {
+  const [activeTab, setActiveTab] = useState<Tab>('uploads');
   const [books, setBooks] = useState<UserLibrary[]>([]);
   const [uploadedBooks, setUploadedBooks] = useState<Book[]>([]);
   const [removingId, setRemovingId] = useState<string | null>(null);
   const { user } = useAuth();
-  console.log(books);
 
   async function handlePublishRequest(
     e: React.MouseEvent<HTMLButtonElement>,
@@ -44,7 +46,6 @@ export default function MyBooks() {
     e.stopPropagation();
 
     setRemovingId(id);
-
     removeBookFromLibrary(id);
 
     setTimeout(() => {
@@ -66,7 +67,6 @@ export default function MyBooks() {
     e.stopPropagation();
 
     setRemovingId(id);
-
     removeBook(id);
 
     setTimeout(() => {
@@ -74,109 +74,136 @@ export default function MyBooks() {
       setRemovingId(null);
     }, 200);
   }
-  console.log('books', books);
 
   return (
     <div className={styles['profile-page']}>
-      <div className={styles['profile-page__uploads']}>
-        <h2>My uploads</h2>
+      <div className={styles['profile-page__tabs']}>
+        <button
+          className={`${styles['profile-page__tab']} ${
+            activeTab === 'uploads' ? styles['active'] : ''
+          }`}
+          onClick={() => setActiveTab('uploads')}
+        >
+          My uploads
+        </button>
+        <button
+          className={`${styles['profile-page__tab']} ${
+            activeTab === 'library' ? styles['active'] : ''
+          }`}
+          onClick={() => setActiveTab('library')}
+        >
+          My Books
+        </button>
+      </div>
 
-        {uploadedBooks.length === 0 ? (
-          <div>No uploaded books yet</div>
-        ) : (
-          <div className={styles['profile-page__uploads-list']}>
-            {uploadedBooks.map((book) => (
-              <Link
-                key={book.book_id}
-                to={`/book/${book.book_id}`}
-                className={styles['profile-page__upload-book']}
-              >
-                <div className={styles['profile-page__upload-book-cover']}>
-                  {book.cover_url ? (
-                    <img
-                      src={`${import.meta.env.VITE_API_URL}${book.cover_url}`}
-                      alt={book.title}
-                    />
-                  ) : (
-                    <div>No cover</div>
-                  )}
-                </div>
-
-                <div className={styles['content']}>
-                  <div className={styles['title-wrapper']}>
-                    <span>{book.title}</span>
-                    <button
-                      className={styles['profile-page__publish-request']}
-                      onClick={(e) => handlePublishRequest(e, book.book_id)}
-                    >
-                      Request Publication
-                    </button>
-
-                    <button
-                      className={styles['profile-page__publish-request']}
-                      onClick={(e) => handleRemoveBook(e, book.book_id)}
-                    >
-                      Remove book
-                    </button>
-
-                    <button>Edit</button>
-
-                    <span>{book.is_public ? 'Published' : 'Pending'}</span>
+      {activeTab === 'uploads' && (
+        <div className={styles['profile-page__uploads']}>
+          {uploadedBooks.length === 0 ? (
+            <div>No uploaded books yet</div>
+          ) : (
+            <div className={styles['profile-page__uploads-list']}>
+              {uploadedBooks.map((book) => (
+                <Link
+                  key={book.book_id}
+                  to={`/book/${book.book_id}`}
+                  className={`${styles['profile-page__upload-book']} ${
+                    removingId === book.book_id ? styles['removing'] : ''
+                  }`}
+                >
+                  <div className={styles['profile-page__upload-book-cover']}>
+                    {book.cover_url ? (
+                      <img
+                        src={`${import.meta.env.VITE_API_URL}${book.cover_url}`}
+                        alt={book.title}
+                      />
+                    ) : (
+                      <div>No cover</div>
+                    )}
                   </div>
 
-                  <span>{book.description}</span>
+                  <div className={styles['content']}>
+                    <div className={styles['title-wrapper']}>
+                      <span>{book.title}</span>
+                      <span className={styles['status']}>
+                        {book.is_public ? 'Published' : 'Pending'}
+                      </span>
+                    </div>
+
+                    <span>{book.description}</span>
+
+                    <div className={styles['actions']}>
+                      <button
+                        className={styles['profile-page__publish-request']}
+                        onClick={(e) => handlePublishRequest(e, book.book_id)}
+                      >
+                        Request Publication
+                      </button>
+
+                      <button
+                        className={styles['profile-page__publish-request']}
+                        onClick={(e) => handleRemoveBook(e, book.book_id)}
+                      >
+                        Remove book
+                      </button>
+
+                      <button onClick={(e) => handleEditBook(e, book.book_id)}>
+                        Edit
+                      </button>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {activeTab === 'library' && (
+        <div className={styles['profile-page__library']}>
+          {books.map((b: UserLibrary) => {
+            const authors = b?.authors ?? [];
+
+            return (
+              <Link
+                key={b.id}
+                to={`/book/${b.book?.book_id}`}
+                className={`${styles['profile-page__library-book']} ${
+                  removingId === b.book_id ? styles['removing'] : ''
+                }`}
+              >
+                <div className={styles['profile-page__library-book-cover']}>
+                  <img src={`${import.meta.env.VITE_API_URL}${b?.cover_url}`} />
+                </div>
+                <div className={styles['content']}>
+                  <div className={styles['title-wrapper']}>
+                    <span>{b?.title}</span>
+                    <span>{formatRelativeDate(b?.saved_at)}</span>
+                    <button
+                      onClick={(e) => handleRemoveLibraryBook(e, b.book_id)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+
+                  <span className={styles['authors']}>
+                    {authors.length ? (
+                      authors.map((author: Author, index: number) => (
+                        <span key={author.author_id}>
+                          {author.first_name} {author.last_name}
+                          {index < authors.length - 1 && ',\u00A0'}
+                        </span>
+                      ))
+                    ) : (
+                      <>No Author</>
+                    )}
+                  </span>
+                  <span>{b?.description}</span>
                 </div>
               </Link>
-            ))}
-          </div>
-        )}
-      </div>
-      <div>My Books</div>
-      <div className={styles['profile-page__library']}>
-        {books.map((b: UserLibrary) => {
-          const authors = b?.authors ?? [];
-          console.log('b', b);
-
-          return (
-            <Link
-              key={b.id}
-              to={`/book/${b.book?.book_id}`}
-              className={`${styles['profile-page__library-book']} ${
-                removingId === b.book_id ? styles['removing'] : ''
-              }`}
-            >
-              <div className={styles['profile-page__library-book-cover']}>
-                <img src={`${import.meta.env.VITE_API_URL}${b?.cover_url}`} />
-              </div>
-              <div className={styles['content']}>
-                <div className={styles['title-wrapper']}>
-                  <span>{b?.title}</span>
-                  <span>{formatRelativeDate(b?.saved_at)}</span>
-                  <button
-                    onClick={(e) => handleRemoveLibraryBook(e, b.book_id)}
-                  >
-                    Remove
-                  </button>
-                </div>
-
-                <span className={styles['authors']}>
-                  {authors.length ? (
-                    authors.map((author: Author, index: number) => (
-                      <span key={author.author_id}>
-                        {author.first_name} {author.last_name}
-                        {index < authors.length - 1 && ',\u00A0'}
-                      </span>
-                    ))
-                  ) : (
-                    <>No Author</>
-                  )}
-                </span>
-                <span>{b?.description}</span>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
