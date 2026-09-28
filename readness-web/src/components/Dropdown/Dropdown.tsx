@@ -87,6 +87,16 @@ export default function Dropdown<T>({
 
   return (
     <div ref={dropdownRef} className={styles.dropdown}>
+      {selected.map((item) => (
+        <input
+          key={getValue(item)}
+          type='hidden'
+          name={name}
+          value={getValue(item)}
+          readOnly
+        />
+      ))}
+
       <button
         type='button'
         className={`${styles.dropdown__trigger} ${
@@ -99,27 +109,21 @@ export default function Dropdown<T>({
             <span className={styles.dropdown__placeholder}>{placeholder}</span>
           ) : isMultiple ? (
             <div className={styles.dropdown__chips}>
-              {selected.map((item) => {
-                const value = getValue(item);
+              {selected.map((item) => (
+                <span key={getValue(item)} className={styles.dropdown__chip}>
+                  {getLabel(item)}
 
-                return (
-                  <span key={value} className={styles.dropdown__chip}>
-                    {getLabel(item)}
-
-                    <span
-                      className={styles.dropdown__chipRemove}
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        handleRemove(item);
-                      }}
-                    >
-                      ×
-                    </span>
-
-                    <input type='hidden' name={name} value={value} readOnly />
+                  <span
+                    className={styles.dropdown__chipRemove}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handleRemove(item);
+                    }}
+                  >
+                    ×
                   </span>
-                );
-              })}
+                </span>
+              ))}
             </div>
           ) : (
             <span>{selectedLabels[0]}</span>

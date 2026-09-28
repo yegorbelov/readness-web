@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { SubmitEvent } from 'react';
 
 import styles from './NewBookPage.module.scss';
@@ -12,12 +12,15 @@ import { type Author, type Language } from '@/types/book';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import Modal from '@/components/Modal/Modal';
 import Calendar from '@/components/Calendar/Calendar';
+import Button from '@/components/Button/Button';
 
 export default function NewBookPage() {
   const [languages, setLanguages] = useState<Language[]>([]);
   const [authors, setAuthors] = useState<Author[]>([]);
 
   const [isCreating, setIsCreating] = useState(false);
+  const coverInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     fetchLanguages().then(setLanguages);
@@ -69,10 +72,10 @@ export default function NewBookPage() {
 
   return (
     <div className={styles['new-book-page']}>
-      <form onSubmit={handleAddLanguage}>
+      {/* <form onSubmit={handleAddLanguage}>
         <input name='name' placeholder='name' />
         <button type='submit'>Add Language</button>
-      </form>
+      </form> */}
       <form
         className={styles['new-book-page__form']}
         onSubmit={handleCreateBook}
@@ -85,6 +88,7 @@ export default function NewBookPage() {
           name='author_id'
           getValue={(author) => author.author_id}
           getLabel={(author) => `${author.first_name} ${author.last_name}`}
+          placeholder='Select authors'
         />
 
         <Dropdown
@@ -93,6 +97,7 @@ export default function NewBookPage() {
           name='language_id'
           getValue={(language) => language.language_id}
           getLabel={(language) => `${language.name}`}
+          placeholder='Select language'
         />
 
         <textarea name='description' placeholder='Description' />
@@ -100,19 +105,30 @@ export default function NewBookPage() {
         <Calendar value={publishedAt} onChange={setPublishedAt} />
         <input type='hidden' name='published_at' value={publishedAt} required />
 
-        <label>
+        <Button type='button' onClick={() => coverInputRef.current?.click()}>
           Cover
-          <input
-            name='cover'
-            type='file'
-            accept='image/jpeg,image/png,image/webp'
-          />
-        </label>
+        </Button>
 
-        <label>
+        <input
+          ref={coverInputRef}
+          name='cover'
+          type='file'
+          accept='image/jpeg,image/png,image/webp'
+          hidden
+        />
+
+        <Button type='button' onClick={() => fileInputRef.current?.click()}>
           Book file
-          <input name='file' type='file' accept='application/pdf,.pdf' />
-        </label>
+        </Button>
+
+        <input
+          ref={fileInputRef}
+          name='file'
+          type='file'
+          accept='application/pdf,.pdf'
+          hidden
+        />
+
         <div className={styles['new-book-page__button-section']}>
           <button type='button' disabled={isCreating}>
             Cancel
