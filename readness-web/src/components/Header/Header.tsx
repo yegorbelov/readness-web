@@ -1,6 +1,6 @@
 import styles from './Header.module.scss';
 import { useEffect, useRef, useState } from 'react';
-import { searchBooks } from '@/api/books';
+import { fetchBooks } from '@/api/books';
 import type { Book } from '@/types/book';
 import { useAuth } from '@/contexts/AuthContext';
 import AuthDialog from '@/components/AuthDialog/AuthDialog';
@@ -17,7 +17,18 @@ export default function Header() {
   const { user, isLoggedIn } = useAuth();
 
   useEffect(() => {
-    searchBooks(query).then(setResults);
+    if (!query.trim()) {
+      setResults([]);
+      return;
+    }
+
+    const params = new URLSearchParams();
+    params.set('q', query.trim());
+    params.set('page', '1');
+
+    fetchBooks(params)
+      .then(setResults)
+      .catch(() => setResults([]));
   }, [query]);
 
   useEffect(() => {
@@ -76,7 +87,16 @@ export default function Header() {
                     <img
                       src={`${import.meta.env.VITE_API_URL}${r.cover_url}`}
                     />
-                    <span>{r.title}</span>
+                    <div>
+                      <span>{r.title}</span>
+                      <div>
+                        {r.authors?.map((a) => (
+                          <span>
+                            {a.first_name} {a.last_name}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </Link>
                 ))}
               </div>

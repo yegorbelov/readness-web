@@ -1,10 +1,9 @@
 import type { Book, BookDetails, CreateBookRequest } from '@/types/book';
-
-import { mockBooks } from './mocks/books';
 import { apiFetch } from './api';
 
-export async function fetchBooks(): Promise<Book[]> {
-  const response = await apiFetch('/books');
+export async function fetchBooks(params?: URLSearchParams): Promise<Book[]> {
+  const query = params?.toString();
+  const response = await apiFetch(query ? `/books?${query}` : `/books`);
 
   if (!response.ok) {
     throw new Error('Failed to fetch books');
@@ -21,14 +20,6 @@ export async function fetchBookById(id: string): Promise<BookDetails> {
   }
 
   return response.json();
-}
-
-export async function searchBooks(query: string): Promise<Book[]> {
-  if (!query.trim()) return [];
-
-  return mockBooks.filter((b) =>
-    b.title.toLowerCase().includes(query.toLowerCase()),
-  );
 }
 
 export async function createNewBook(
