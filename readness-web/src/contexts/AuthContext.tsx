@@ -6,7 +6,8 @@ import {
   type ReactNode,
 } from 'react';
 import type { User } from '@/types/user';
-import { getUser, logout } from '@/api/user';
+import { getUser } from '@/api/user';
+import { logout } from '@/api/auth';
 
 interface AuthContextValue {
   user: User | null;

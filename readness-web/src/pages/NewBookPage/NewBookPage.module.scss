@@ -4,10 +4,23 @@
 .new-book-page {
   padding-top: 90px;
   @include center;
+  width: 768px;
 
   &__form {
     display: flex;
     flex-direction: column;
     gap: 20px;
+  }
+
+  &__button-section {
+    display: flex;
+    gap: 30px;
+    button {
+      font-weight: 500;
+      flex: 1;
+      border-radius: 20px;
+      padding: 5px;
+      background: brown;
+    }
   }
 }

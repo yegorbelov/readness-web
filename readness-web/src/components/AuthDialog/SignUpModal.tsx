@@ -1,4 +1,4 @@
-import { signup } from '@/api/user';
+import { signup } from '@/api/auth';
 import styles from './LogInModal.module.scss';
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';

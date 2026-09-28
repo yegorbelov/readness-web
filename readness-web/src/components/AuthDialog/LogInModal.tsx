@@ -1,4 +1,4 @@
-import { login } from '@/api/user';
+import { login } from '@/api/auth';
 import styles from './LogInModal.module.scss';
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';

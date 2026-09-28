@@ -5,10 +5,13 @@ import styles from './NewBookPage.module.scss';
 
 import { createNewBook, uploadBookCover, uploadBookFile } from '@/api/books';
 
-import { fetchLanguages } from '@/api/languages';
+import { createLanguage, fetchLanguages } from '@/api/languages';
 import { fetchAuthors } from '@/api/authors';
 
 import { type Author, type Language } from '@/types/book';
+import Dropdown from '@/components/Dropdown/Dropdown';
+import Modal from '@/components/Modal/Modal';
+import Calendar from '@/components/Calendar/Calendar';
 
 export default function NewBookPage() {
   const [languages, setLanguages] = useState<Language[]>([]);
@@ -20,6 +23,12 @@ export default function NewBookPage() {
     fetchLanguages().then(setLanguages);
     fetchAuthors().then(setAuthors);
   }, []);
+
+  function handleAddLanguage(event: SubmitEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    return createLanguage({ name: formData.get('name') });
+  }
 
   async function handleCreateBook(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -35,7 +44,7 @@ export default function NewBookPage() {
         author_ids: authorIds,
         description: formData.get('description') as string,
         language_id: formData.get('language_id') as string,
-        published_at: formData.get('published_at') as string,
+        published_at: publishedAt as string,
         title: formData.get('title') as string,
       });
 
@@ -56,38 +65,40 @@ export default function NewBookPage() {
       setIsCreating(false);
     }
   }
+  const [publishedAt, setPublishedAt] = useState('');
 
   return (
     <div className={styles['new-book-page']}>
+      <form onSubmit={handleAddLanguage}>
+        <input name='name' placeholder='name' />
+        <button type='submit'>Add Language</button>
+      </form>
       <form
         className={styles['new-book-page__form']}
         onSubmit={handleCreateBook}
       >
         <input name='title' placeholder='Title' required />
 
-        <select name='author_id' multiple>
-          {authors.map((author) => (
-            <option key={author.author_id} value={author.author_id}>
-              {author.first_name} {author.last_name}
-            </option>
-          ))}
-        </select>
+        <Dropdown
+          isMultiple={true}
+          list={authors}
+          name='author_id'
+          getValue={(author) => author.author_id}
+          getLabel={(author) => `${author.first_name} ${author.last_name}`}
+        />
 
-        <select name='language_id' defaultValue='' required>
-          <option value='' disabled>
-            Select language
-          </option>
-
-          {languages.map((language) => (
-            <option key={language.language_id} value={language.language_id}>
-              {language.name}
-            </option>
-          ))}
-        </select>
+        <Dropdown
+          isMultiple={false}
+          list={languages}
+          name='language_id'
+          getValue={(language) => language.language_id}
+          getLabel={(language) => `${language.name}`}
+        />
 
         <textarea name='description' placeholder='Description' />
 
-        <input name='published_at' type='date' required />
+        <Calendar value={publishedAt} onChange={setPublishedAt} />
+        <input type='hidden' name='published_at' value={publishedAt} required />
 
         <label>
           Cover
@@ -102,10 +113,14 @@ export default function NewBookPage() {
           Book file
           <input name='file' type='file' accept='application/pdf,.pdf' />
         </label>
-
-        <button type='submit' disabled={isCreating}>
-          {isCreating ? 'Creating...' : 'Create'}
-        </button>
+        <div className={styles['new-book-page__button-section']}>
+          <button type='button' disabled={isCreating}>
+            Cancel
+          </button>
+          <button type='submit' disabled={isCreating}>
+            {isCreating ? 'Creating...' : 'Create'}
+          </button>
+        </div>
       </form>
     </div>
   );
