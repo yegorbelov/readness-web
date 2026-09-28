@@ -10,6 +10,7 @@ interface DropdownProps<T> {
   placeholder?: string;
   getValue: (item: T) => string;
   getLabel: (item: T) => string;
+  isModal: boolean;
 }
 
 export default function Dropdown<T>({

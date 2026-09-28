@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { getUserUploads, removeBook } from '@/api/books';
 import { publishBookRequest } from '@/api/book_requests';
 import { formatRelativeDate } from '@/utils/date';
+import Button from '@/components/Button/Button';
 
 type Tab = 'uploads' | 'library';
 
@@ -132,23 +133,21 @@ export default function MyBooks() {
                     <span>{book.description}</span>
 
                     <div className={styles['actions']}>
-                      <button
-                        className={styles['profile-page__publish-request']}
+                      <Button
                         onClick={(e) => handlePublishRequest(e, book.book_id)}
                       >
                         Request Publication
-                      </button>
+                      </Button>
 
-                      <button
-                        className={styles['profile-page__publish-request']}
+                      <Button
                         onClick={(e) => handleRemoveBook(e, book.book_id)}
                       >
                         Remove book
-                      </button>
+                      </Button>
 
-                      <button onClick={(e) => handleEditBook(e, book.book_id)}>
+                      <Button onClick={(e) => handleEditBook(e, book.book_id)}>
                         Edit
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 </Link>
@@ -166,7 +165,7 @@ export default function MyBooks() {
             return (
               <Link
                 key={b.id}
-                to={`/book/${b.book?.book_id}`}
+                to={`/book/${b?.book_id}`}
                 className={`${styles['profile-page__library-book']} ${
                   removingId === b.book_id ? styles['removing'] : ''
                 }`}
@@ -178,11 +177,11 @@ export default function MyBooks() {
                   <div className={styles['title-wrapper']}>
                     <span className={styles['title']}>{b?.title}</span>
                     <span>{formatRelativeDate(b?.saved_at)}</span>
-                    <button
+                    <Button
                       onClick={(e) => handleRemoveLibraryBook(e, b.book_id)}
                     >
                       Remove
-                    </button>
+                    </Button>
                   </div>
 
                   <span className={styles['authors']}>

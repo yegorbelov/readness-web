@@ -9,6 +9,12 @@
   font-size: 96px;
   @include center;
 
+  &__tabs {
+    display: flex;
+    gap: 20px;
+    font-size: var(--font-size-3xl);
+  }
+
   &__uploads {
     display: flex;
     flex-direction: column;
@@ -164,6 +170,9 @@
   display: flex;
   gap: 12px;
   flex-shrink: 0;
+  align-self: flex-end;
+  overflow-x: scroll;
+  max-width: 100%;
 }
 
 .content {

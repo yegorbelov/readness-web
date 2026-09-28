@@ -1,25 +1,12 @@
-import type { ReactNode } from 'react';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import styles from './Button.module.scss';
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  type?: 'button' | 'submit' | 'reset';
-  onClick?: () => void;
-  disabled?: boolean;
 }
-export default function Button({
-  children,
-  type = 'button',
-  onClick,
-  disabled = false,
-}: ButtonProps) {
+export default function Button({ children, ...props }: ButtonProps) {
   return (
-    <button
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
-      className={styles['button']}
-    >
+    <button {...props} className={styles['button']}>
       {children}
     </button>
   );

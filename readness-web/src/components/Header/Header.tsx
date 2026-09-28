@@ -1,5 +1,5 @@
 import styles from './Header.module.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { searchBooks } from '@/api/books';
 import type { Book } from '@/types/book';
 import { useAuth } from '@/contexts/AuthContext';
@@ -11,12 +11,31 @@ export default function Header() {
   const [results, setResults] = useState<Book[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isLogInModalOpen, setIsLogInModalOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const { user, isLoggedIn } = useAuth();
 
   useEffect(() => {
     searchBooks(query).then(setResults);
   }, [query]);
+
+  useEffect(() => {
+    const handlePointerDown = (e: PointerEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+    };
+  }, []);
 
   return (
     <>
@@ -74,17 +93,26 @@ export default function Header() {
         >
           {/* <div className={`${styles[`header__tabs__tab`]}`}> */}
           {isLoggedIn ? (
-            <>
-              {(user?.role.name === 'admin' ||
-                user?.role.name === 'moderator') && (
-                <Link to='/moderation/requests'>Requests</Link>
+            <div ref={dropdownRef}>
+              <button onClick={() => setDropdownOpen(!dropdownOpen)}>
+                {user?.username}
+              </button>
+              {dropdownOpen && (
+                <div className={styles['header__dropdown']}>
+                  <Link to='/profile'>{user?.username}</Link>
+                  {(user?.role.name === 'admin' ||
+                    user?.role.name === 'moderator') && (
+                    <Link to='/moderation/requests'>Requests</Link>
+                  )}
+                  {user?.role.name === 'admin' && (
+                    <Link to='/admin'>Panel</Link>
+                  )}
+                  <Link to='/books/new'>Create Book</Link>
+                  <Link to='/authors/new'>Authors</Link>
+                  <Link to='/mybooks'>My Books</Link>
+                </div>
               )}
-              {user?.role.name === 'admin' && <Link to='/admin'>Panel</Link>}
-              <Link to='/books/new'>NEW</Link>
-              <Link to='/authors/new'>Authors</Link>
-              <Link to='/mybooks'>My Books</Link>
-              <Link to='/profile'>{user?.username}</Link>
-            </>
+            </div>
           ) : (
             <button onClick={() => setIsLogInModalOpen(true)}>Log In</button>
           )}
