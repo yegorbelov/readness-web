@@ -156,6 +156,10 @@
   }
 }
 
+.title {
+  font-weight: 600;
+}
+
 .actions {
   display: flex;
   gap: 12px;
@@ -166,4 +170,5 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  width: 100%;
 }

@@ -123,7 +123,7 @@ export default function MyBooks() {
 
                   <div className={styles['content']}>
                     <div className={styles['title-wrapper']}>
-                      <span>{book.title}</span>
+                      <span className={styles['title']}>{book.title}</span>
                       <span className={styles['status']}>
                         {book.is_public ? 'Published' : 'Pending'}
                       </span>
@@ -176,7 +176,7 @@ export default function MyBooks() {
                 </div>
                 <div className={styles['content']}>
                   <div className={styles['title-wrapper']}>
-                    <span>{b?.title}</span>
+                    <span className={styles['title']}>{b?.title}</span>
                     <span>{formatRelativeDate(b?.saved_at)}</span>
                     <button
                       onClick={(e) => handleRemoveLibraryBook(e, b.book_id)}

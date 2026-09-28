@@ -39,6 +39,10 @@
   align-items: center;
 }
 
+.title {
+  font-weight: 600;
+}
+
 .arrow {
   display: none;
   @media screen and (max-width: 576px) {
