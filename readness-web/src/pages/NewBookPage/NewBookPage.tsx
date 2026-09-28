@@ -5,12 +5,12 @@ import styles from './NewBookPage.module.scss';
 
 import { createNewBook, uploadBookCover, uploadBookFile } from '@/api/books';
 
-import { createLanguage, fetchLanguages } from '@/api/languages';
+import { fetchLanguages } from '@/api/languages';
 import { fetchAuthors } from '@/api/authors';
 
 import { type Author, type Language } from '@/types/book';
 import Dropdown from '@/components/Dropdown/Dropdown';
-import Modal from '@/components/Modal/Modal';
+// import Modal from '@/components/Modal/Modal';
 import Calendar from '@/components/Calendar/Calendar';
 import Button from '@/components/Button/Button';
 
@@ -27,11 +27,11 @@ export default function NewBookPage() {
     fetchAuthors().then(setAuthors);
   }, []);
 
-  function handleAddLanguage(event: SubmitEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    return createLanguage({ name: formData.get('name') });
-  }
+  // function handleAddLanguage(event: SubmitEvent<HTMLFormElement>) {
+  //   event.preventDefault();
+  //   const formData = new FormData(event.currentTarget);
+  //   return createLanguage({ name: formData.get('name') });
+  // }
 
   async function handleCreateBook(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();

@@ -3,6 +3,7 @@
 
 .book-page-wrapper {
   @include center;
+
   padding-top: calc(90px + 60px);
   padding-bottom: 60px;
 
@@ -176,16 +177,12 @@
     font-family: 'Inika', serif;
     font-size: 32px;
     overflow: hidden;
-    min-height: fit-content;
+
+    // min-height: fit-content;
 
     &--closed {
-      mask-image: linear-gradient(
-        to bottom,
-        black 0%,
-        black 70%,
-        transparent 90%,
-        transparent 100%
-      );
+      height: fit-content;
+      max-height: 200px;
     }
   }
 }
@@ -249,7 +246,7 @@
 }
 
 .mask {
-  min-height: 200px;
+  height: max-content;
   max-height: 400px;
   overflow: hidden;
 

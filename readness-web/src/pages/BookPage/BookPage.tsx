@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 import type { Author, BookDetails } from '@/types/book';
 import { useAuth } from '@/contexts/AuthContext';
 import { addBookToLibrary, removeBookFromLibrary } from '@/api/user_library';
+import Button from '@/components/Button/Button';
 
 export default function BookPage() {
   const { id } = useParams<{ id: string }>();
@@ -156,10 +157,7 @@ export default function BookPage() {
               </button>
             )}
           </div>
-          <button
-            onClick={handleAddToList}
-            className={styles['book-page-wrapper__add-to-list']}
-          >
+          <Button onClick={handleAddToList}>
             <div
               className={`${styles['book-page-wrapper__heart']} ${book.saved_at ? styles['book-page-wrapper__heart--active'] : ''}`}
               style={
@@ -169,7 +167,7 @@ export default function BookPage() {
               }
             />
             {book.saved_at ? 'remove from list' : 'add to list'}
-          </button>
+          </Button>
           <div className={styles['authors-wrapper']}>
             {authors.map((author: Author, index: number) => (
               <span key={author.author_id}>

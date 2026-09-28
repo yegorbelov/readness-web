@@ -8,11 +8,14 @@
   min-height: 80vh;
   font-size: 96px;
   @include center;
+  padding-left: 0;
+  padding-right: 0;
 
   &__tabs {
     display: flex;
     gap: 20px;
     font-size: var(--font-size-3xl);
+    padding: 0 20px;
   }
 
   &__uploads {

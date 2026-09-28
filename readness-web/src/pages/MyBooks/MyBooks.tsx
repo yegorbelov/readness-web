@@ -136,17 +136,17 @@ export default function MyBooks() {
                       <Button
                         onClick={(e) => handlePublishRequest(e, book.book_id)}
                       >
-                        Request Publication
+                        <span>Request Publication</span>
                       </Button>
 
                       <Button
                         onClick={(e) => handleRemoveBook(e, book.book_id)}
                       >
-                        Remove book
+                        <span>Remove book</span>
                       </Button>
 
                       <Button onClick={(e) => handleEditBook(e, book.book_id)}>
-                        Edit
+                        <span>Edit</span>
                       </Button>
                     </div>
                   </div>

@@ -52,11 +52,32 @@
   animation: showQuote 1.5s;
 }
 
-@keyframes showQuote {
-  0% {
+.quote-line {
+  display: block;
+}
+
+.quote-word {
+  display: inline-block;
+  opacity: 0;
+  margin-right: 0.25em;
+
+  animation: showWord 0.5s ease forwards;
+}
+
+.emphasize {
+  font-weight: bold;
+}
+
+@keyframes showWord {
+  from {
     opacity: 0;
+    filter: blur(10px);
+    transform: translateY(15px);
   }
-  100% {
+
+  to {
     opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
   }
 }

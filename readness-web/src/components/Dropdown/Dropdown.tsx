@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import styles from './Dropdown.module.scss';
 import Modal from '../Modal/Modal';
@@ -10,7 +10,6 @@ interface DropdownProps<T> {
   placeholder?: string;
   getValue: (item: T) => string;
   getLabel: (item: T) => string;
-  isModal: boolean;
 }
 
 export default function Dropdown<T>({

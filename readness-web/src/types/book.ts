@@ -38,7 +38,7 @@ export interface BookDetails extends Book {
 }
 
 export type CreateBookRequest = {
-  author_id: string;
+  author_ids: string[];
   description: string;
   language_id: string;
   published_at: string;
