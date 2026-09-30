@@ -12,13 +12,30 @@
   padding: 0 10px;
   z-index: 999;
   white-space: nowrap;
-  transition: backdrop-filter 0.3s;
+  transition-property: backdrop-filter, background;
+  transition-duration: 0.3s;
   flex-wrap: wrap;
 
   &__dropdown {
     display: flex;
     flex-direction: column;
+    width: 100%;
+
+    & > * {
+      transition: background 0.3s;
+    }
+    & > *:hover {
+      background: rgb(from #ffffff r g b / 40%);
+    }
+
     @media screen and (min-width: 768px) {
+      & > * {
+        transition: background 0.3s;
+      }
+      & > *:hover {
+        background: none;
+      }
+      width: auto;
       right: 0;
       position: absolute;
       padding: 10px;
@@ -35,6 +52,7 @@
 
   &--open {
     backdrop-filter: blur(10px);
+    background: rgb(from #1e1e1e r g b / 40%);
   }
 
   &__logo-text {
@@ -128,7 +146,6 @@
     }
     &__tabs {
       display: none;
-      background: rgb(from #1e1e1e r g b / 40%);
 
       &--open {
         display: flex;
@@ -176,4 +193,19 @@
   img {
     height: 100%;
   }
+}
+
+.menu-button {
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.menu-button-wrapper {
+  display: flex;
+  gap: 20px;
+  font-size: var(--font-size-4xl);
+  text-shadow: 0 4px 10px #000;
+  flex-wrap: wrap;
+  position: relative;
 }
