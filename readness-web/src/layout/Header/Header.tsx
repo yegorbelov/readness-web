@@ -32,22 +32,22 @@ export default function Header() {
       .catch(() => setResults([]));
   }, [query]);
 
-  useEffect(() => {
-    const handlePointerDown = (e: PointerEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        setDropdownOpen(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handlePointerDown = (e: PointerEvent) => {
+  //     if (
+  //       dropdownRef.current &&
+  //       !dropdownRef.current.contains(e.target as Node)
+  //     ) {
+  //       setDropdownOpen(false);
+  //     }
+  //   };
 
-    document.addEventListener('pointerdown', handlePointerDown);
+  //   document.addEventListener('pointerdown', handlePointerDown);
 
-    return () => {
-      document.removeEventListener('pointerdown', handlePointerDown);
-    };
-  }, []);
+  //   return () => {
+  //     document.removeEventListener('pointerdown', handlePointerDown);
+  //   };
+  // }, []);
 
   return (
     <>
