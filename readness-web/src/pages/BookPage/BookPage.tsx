@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 import type { Author, BookDetails } from '@/types/book';
 import { useAuth } from '@/contexts/AuthContext';
 import { addBookToLibrary, removeBookFromLibrary } from '@/api/user_library';
-import Button from '@/components/Button/Button';
+import Button from '@/components/ui/Button/Button';
 
 export default function BookPage() {
   const { id } = useParams<{ id: string }>();

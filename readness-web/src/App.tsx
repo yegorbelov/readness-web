@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { AuthProvider } from '@/contexts/AuthContext';
-import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer/Footer';
+import Header from '@/layout/Header/Header';
+import Footer from '@/layout/Footer/Footer';
 import { ProtectedRoute } from '@/components/ProtectedRoute/ProtectedRoute';
 
 import HomePage from '@/pages/HomePage/HomePage';

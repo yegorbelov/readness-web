@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { getUserUploads, removeBook } from '@/api/books';
 import { publishBookRequest } from '@/api/book_requests';
 import { formatRelativeDate } from '@/utils/date';
-import Button from '@/components/Button/Button';
+import Button from '@/components/ui/Button/Button';
 
 type Tab = 'uploads' | 'library';
 

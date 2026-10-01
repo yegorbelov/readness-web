@@ -59,7 +59,7 @@
 .quote-word {
   display: inline-block;
   opacity: 0;
-  margin-right: 0.25em;
+  // margin-right: 0.25em;
 
   animation: showWord 0.5s ease forwards;
 }
@@ -80,4 +80,12 @@
     filter: blur(0px);
     transform: translateY(0);
   }
+}
+
+.quote-word {
+  display: inline-block;
+}
+
+.quote-space {
+  display: inline;
 }

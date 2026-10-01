@@ -16,40 +16,6 @@
   transition-duration: 0.3s;
   flex-wrap: wrap;
 
-  &__dropdown {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-
-    & > * {
-      transition: background 0.3s;
-    }
-    & > *:hover {
-      background: rgb(from #ffffff r g b / 40%);
-    }
-
-    @media screen and (min-width: 768px) {
-      & > * {
-        transition: background 0.3s;
-      }
-      & > *:hover {
-        background: none;
-      }
-      width: auto;
-      right: 0;
-      position: absolute;
-      padding: 10px;
-      backdrop-filter: blur(10px);
-      border: #fff 3px solid;
-      border-radius: 30px;
-      background: rgb(from #1e1e1e r g b / 40%);
-
-      & > *:not(:last-child) {
-        border-bottom: 1px solid #fff;
-      }
-    }
-  }
-
   &--open {
     backdrop-filter: blur(10px);
     background: rgb(from #1e1e1e r g b / 40%);
@@ -112,6 +78,7 @@
     font-size: var(--font-size-4xl);
     text-shadow: 0 4px 10px #000;
     flex-wrap: wrap;
+    display: none;
   }
 
   &__logo {

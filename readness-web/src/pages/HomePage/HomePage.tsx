@@ -4,9 +4,12 @@ import { images } from '@/constants/images';
 
 function HomePage() {
   const quote = [
-    ['Recommendations', 'you’ve'],
-    ['never', 'experienced', 'before'],
+    ['Recommendations', ' ', 'you’ve'],
+    ['never', ' ', 'experienced', ' ', 'before'],
   ];
+
+  let animationIndex = 0;
+
   return (
     <>
       <div className={styles['main-photo']}>
@@ -15,14 +18,25 @@ function HomePage() {
             {quote.map((line, lineIndex) => (
               <span className={styles['quote-line']} key={lineIndex}>
                 {line.map((word, wordIndex) => {
-                  const index =
-                    quote
-                      .slice(0, lineIndex)
-                      .reduce((sum, line) => sum + line.length, 0) + wordIndex;
+                  const isSpace = word === ' ';
+
+                  if (isSpace) {
+                    return (
+                      <span
+                        key={`${lineIndex}-${wordIndex}`}
+                        className={styles['quote-space']}
+                      >
+                        {' '}
+                      </span>
+                    );
+                  }
+
+                  const delay = animationIndex * 0.2;
+                  animationIndex++;
 
                   return (
                     <span
-                      key={word}
+                      key={`${lineIndex}-${wordIndex}`}
                       className={[
                         styles['quote-word'],
                         (word === 'never' || word === 'before') &&
@@ -30,7 +44,7 @@ function HomePage() {
                       ]
                         .filter(Boolean)
                         .join(' ')}
-                      style={{ animationDelay: `${index * 0.2}s` }}
+                      style={{ animationDelay: `${delay}s` }}
                     >
                       {word}
                     </span>
@@ -40,12 +54,15 @@ function HomePage() {
             ))}
           </span>
         </div>
+
         <img
           draggable={false}
           className={styles['reading-girl']}
           src={images.readingGirl}
+          fetchPriority='high'
         />
       </div>
+
       <div className={styles['main']}>
         <BookList />
       </div>

@@ -5,6 +5,7 @@ import type { Book } from '@/types/book';
 import { useAuth } from '@/contexts/AuthContext';
 import AuthDialog from '@/components/AuthDialog/AuthDialog';
 import { Link } from 'react-router-dom';
+import Tabs from './Tabs/Tabs';
 
 export default function Header() {
   const [query, setQuery] = useState('');
@@ -111,6 +112,7 @@ export default function Header() {
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 {user?.username}
+                {dropdownOpen && <Tabs user={user} />}
               </button>
             ) : (
               <button
@@ -138,17 +140,7 @@ export default function Header() {
         >
           {dropdownOpen &&
             (isLoggedIn ? (
-              <div className={styles['header__dropdown']}>
-                <Link to='/profile'>My Profile</Link>
-                {(user?.role.name === 'admin' ||
-                  user?.role.name === 'moderator') && (
-                  <Link to='/moderation/requests'>Requests</Link>
-                )}
-                {user?.role.name === 'admin' && <Link to='/admin'>Panel</Link>}
-                <Link to='/books/new'>Create Book</Link>
-                <Link to='/authors/new'>Authors</Link>
-                <Link to='/mybooks'>My Books</Link>
-              </div>
+              <Tabs user={user} />
             ) : (
               <button onClick={() => setIsLogInModalOpen(true)}>Log In</button>
             ))}

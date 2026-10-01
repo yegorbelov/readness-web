@@ -9,10 +9,9 @@ import { fetchLanguages } from '@/api/languages';
 import { fetchAuthors } from '@/api/authors';
 
 import { type Author, type Language } from '@/types/book';
-import Dropdown from '@/components/Dropdown/Dropdown';
-// import Modal from '@/components/Modal/Modal';
-import Calendar from '@/components/Calendar/Calendar';
-import Button from '@/components/Button/Button';
+import Dropdown from '@/components/ui/Dropdown/Dropdown';
+import Calendar from '@/components/ui/Calendar/Calendar';
+import Button from '@/components/ui/Button/Button';
 
 export default function NewBookPage() {
   const [languages, setLanguages] = useState<Language[]>([]);

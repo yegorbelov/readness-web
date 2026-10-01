@@ -1,0 +1,34 @@
+.header__dropdown {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
+
+  & > * {
+    transition: background 0.3s;
+  }
+  & > *:hover {
+    background: rgb(from #ffffff r g b / 40%);
+  }
+
+  @media screen and (min-width: 768px) {
+    & > * {
+      transition: background 0.3s;
+    }
+    & > *:hover {
+      background: none;
+    }
+    width: auto;
+    right: 0;
+    position: absolute;
+    padding: 10px;
+    backdrop-filter: blur(10px);
+    border: #fff 3px solid;
+    border-radius: 30px;
+    background: rgb(from #1e1e1e r g b / 40%);
+
+    & > *:not(:last-child) {
+      border-bottom: 1px solid #fff;
+    }
+  }
+}
