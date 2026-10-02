@@ -8,7 +8,7 @@ export interface Role {
 }
 
 export interface User {
-  id: string;
+  user_id: string;
   username: string;
   email: string;
   role: Role;
@@ -25,9 +25,8 @@ export interface LoginResponse {
   // tokens?: AuthTokens;
 }
 
-export interface UserLibrary {
+export interface UserLibrary extends Book {
   id: number;
   user: User;
-  book: Book;
-  added_at: string;
+  saved_at: string;
 }

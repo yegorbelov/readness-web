@@ -7,7 +7,7 @@ export async function fetchTopics(): Promise<Topic[]> {
   return response.json();
 }
 
-export async function createTopic(data): Promise<void> {
+export async function createTopic(data: Topic): Promise<void> {
   const response = await apiFetch('/topics', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -22,7 +22,7 @@ export async function fetchTopicById(id: string): Promise<Topic[]> {
   return response.json();
 }
 
-export async function updateTopic(id: string, data): Promise<void> {
+export async function updateTopic(id: string, data: Topic): Promise<void> {
   const response = await apiFetch(`/topics/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },

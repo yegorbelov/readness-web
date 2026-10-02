@@ -4,6 +4,7 @@
 .new-author-page {
   padding-top: 90px;
   @include center;
+  min-height: 80svh;
 
   &__form {
     display: flex;

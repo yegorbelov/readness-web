@@ -7,7 +7,7 @@ export async function fetchLanguages(): Promise<Language[]> {
   return response.json();
 }
 
-export async function createLanguage(data): Promise<void> {
+export async function createLanguage(data: Language): Promise<void> {
   const response = await apiFetch('/languages', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -22,7 +22,10 @@ export async function fetchLanguageById(id: string): Promise<Language[]> {
   return response.json();
 }
 
-export async function updateLanguage(id: string, data): Promise<void> {
+export async function updateLanguage(
+  id: string,
+  data: Language,
+): Promise<void> {
   const response = await apiFetch(`/languages/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },

@@ -13,7 +13,7 @@ export default function Tabs({ user }: TabsProps) {
       {(user?.role.name === 'admin' || user?.role.name === 'moderator') && (
         <Link to='/moderation/requests'>Requests</Link>
       )}
-      {user?.role.name === 'admin' && <Link to='/admin'>Panel</Link>}
+      {user?.role.name === 'admin' && <Link to='/admin'>Users</Link>}
       <Link to='/books/new'>Create Book</Link>
       <Link to='/authors/new'>Authors</Link>
       <Link to='/mybooks'>My Books</Link>

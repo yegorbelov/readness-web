@@ -92,9 +92,10 @@ export default function Header() {
                     <div>
                       <span>{r.title}</span>
                       <div>
-                        {r.authors?.map((a) => (
+                        {r.authors?.map((a, index: number) => (
                           <span>
                             {a.first_name} {a.last_name}
+                            {index < r?.authors?.length - 1 && ',\u00A0'}
                           </span>
                         ))}
                       </div>

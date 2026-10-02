@@ -59,7 +59,7 @@ export default function MyBooks() {
     }, 200);
   }
 
-  function handleEditBook(e: React.MouseEvent<HTMLButtonElement>, id: string) {
+  function handleEditBook(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     e.stopPropagation();
   }
@@ -153,9 +153,7 @@ export default function MyBooks() {
                           <span>Remove book</span>
                         </Button>
 
-                        <Button
-                          onClick={(e) => handleEditBook(e, book.book_id)}
-                        >
+                        <Button onClick={(e) => handleEditBook(e)}>
                           <span>Edit</span>
                         </Button>
                       </div>

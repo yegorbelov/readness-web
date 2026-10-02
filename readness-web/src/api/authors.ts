@@ -39,7 +39,7 @@ export async function getAuthor(id: string): Promise<Author> {
   return response.json();
 }
 
-export async function updateAuthor(id: string, data): Promise<void> {
+export async function updateAuthor(id: string, data: Author): Promise<void> {
   const response = await apiFetch(`/authors/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },

@@ -45,7 +45,7 @@ export async function removeBook(id: string) {
   if (!response.ok) throw new Error('error');
 }
 
-export async function editBook(id: string, data) {
+export async function editBook(id: string, data: Book) {
   const response = await apiFetch(`/books/${id}`, {
     method: 'PATCH',
     body: JSON.stringify(data),

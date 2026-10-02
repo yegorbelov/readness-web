@@ -1,5 +1,6 @@
 import type { UserLibrary } from '@/types/user';
 import { apiFetch } from './api';
+import type { Book } from '@/types/book';
 
 export async function getUserLibrary(): Promise<UserLibrary[]> {
   const response = await apiFetch('/users/me/books');
@@ -7,7 +8,7 @@ export async function getUserLibrary(): Promise<UserLibrary[]> {
   return response.json();
 }
 
-export async function addBookToLibrary(id: number): Promise<UserLibrary> {
+export async function addBookToLibrary(id: number): Promise<void> {
   const response = await apiFetch(`/users/me/books/${id}`, { method: 'POST' });
 
   if (!response.ok) throw new Error('error');
@@ -20,10 +21,7 @@ export async function removeBookFromLibrary(id: string) {
   if (!response.ok) throw new Error('error');
 }
 
-export async function editReadingStatus(
-  id: number,
-  body,
-): Promise<UserLibrary> {
+export async function editReadingStatus(id: number, body): Promise<void> {
   const response = await apiFetch(`/users/me/books/${id}/status`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/jsoon' },

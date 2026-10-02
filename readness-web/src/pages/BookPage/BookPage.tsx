@@ -2,18 +2,18 @@ import styles from './BookPage.module.scss';
 import { useParams } from 'react-router-dom';
 import { downloadBookFile, fetchBookById, uploadBookFile } from '@/api/books';
 import { useState, useEffect, useRef } from 'react';
-import type { Author, BookDetails } from '@/types/book';
+import type { Author, Book } from '@/types/book';
 import { useAuth } from '@/contexts/AuthContext';
 import { addBookToLibrary, removeBookFromLibrary } from '@/api/user_library';
 import Button from '@/components/ui/Button/Button';
 
 export default function BookPage() {
   const { id } = useParams<{ id: string }>();
-  const [book, setBook] = useState<BookDetails | undefined>(undefined);
+  const [book, setBook] = useState<Book | undefined>(undefined);
   const [isDescOpen, setIsDescOpen] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const [isSticky, setIsSticky] = useState(false);
-  const { user, isLoggedIn } = useAuth();
+  const { user } = useAuth();
   const [isDownloading, setIsDownloading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const descRef = useRef<HTMLDivElement>(null);
@@ -110,9 +110,9 @@ export default function BookPage() {
         setBook((prev) => (prev ? { ...prev, saved_at: undefined } : prev));
       });
     } else {
-      addBookToLibrary(id).then((r: UserLibrary) => {
+      addBookToLibrary(id).then(() => {
         setBook((prev) =>
-          prev ? { ...prev, saved_at: '1', library_id: '1' } : prev,
+          prev ? { ...prev, saved_at: '', library_id: '' } : prev,
         );
       });
     }
@@ -120,11 +120,12 @@ export default function BookPage() {
 
   const isPublic = book?.is_public ?? true;
 
-  const isOwner = book?.uploaded_by?.id === user?.id;
+  const isOwner = true;
 
   // const hasPdf = Boolean(book?.file_url);
 
-  if (!book || (!isPublic && book?.uploaded_by?.id !== user?.id)) return <></>;
+  if (!book || (!isPublic && book?.uploaded_by?.user_id !== user?.user_id))
+    return <></>;
 
   const authors = book.authors ?? [];
 
@@ -199,7 +200,7 @@ export default function BookPage() {
               </span>
             ))}
           </div>
-          <div>Uploaded By {book.uploaded_by}</div>
+          {/* <div>Uploaded By {book.uploaded_by}</div> */}
 
           <div
             style={{

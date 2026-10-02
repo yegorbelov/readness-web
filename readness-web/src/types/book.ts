@@ -30,6 +30,7 @@ export interface Book {
   file_size?: number;
   uploaded_at?: string;
   uploaded_by?: User;
+  saved_at?: string;
 }
 
 export interface BookDetails extends Book {

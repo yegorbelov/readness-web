@@ -4,6 +4,7 @@
 .admin-page {
   padding-top: 90px;
   @include center;
+  min-height: 80svh;
 
   &__table {
     width: 100%;
