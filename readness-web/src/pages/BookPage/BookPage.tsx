@@ -13,10 +13,31 @@ export default function BookPage() {
   const [isDescOpen, setIsDescOpen] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const [isSticky, setIsSticky] = useState(false);
-  const { user } = useAuth();
+  const { user, isLoggedIn } = useAuth();
   const [isDownloading, setIsDownloading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const descRef = useRef<HTMLDivElement>(null);
+  const [descHeight, setDescHeight] = useState(0);
 
+  useEffect(() => {
+    const element = descRef.current;
+
+    if (!element) return;
+
+    const updateHeight = () => {
+      setDescHeight(element.scrollHeight);
+    };
+
+    updateHeight();
+
+    const observer = new ResizeObserver(() => {
+      updateHeight();
+    });
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [book?.description]);
   async function handleUpload(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
 
@@ -84,7 +105,6 @@ export default function BookPage() {
   }, [id, user]);
 
   function handleAddToList() {
-    console.log('click');
     if (book?.saved_at) {
       removeBookFromLibrary(book.book_id).then((e) => {
         setBook((prev) => (prev ? { ...prev, saved_at: undefined } : prev));
@@ -99,13 +119,14 @@ export default function BookPage() {
   }
 
   const isPublic = book?.is_public ?? true;
+
   const isOwner = book?.uploaded_by?.id === user?.id;
+
   // const hasPdf = Boolean(book?.file_url);
 
   if (!book || (!isPublic && book?.uploaded_by?.id !== user?.id)) return <></>;
 
   const authors = book.authors ?? [];
-  // console.log(book);
 
   return (
     <div className={styles['book-page-wrapper']}>
@@ -132,6 +153,7 @@ export default function BookPage() {
           >
             {book.title}
           </div>
+
           <div className={styles['book-page-wrapper__pdf-wrapper']}>
             <label
               className={styles['book-page-wrapper__upload']}
@@ -147,16 +169,17 @@ export default function BookPage() {
               />
             </label>
             {isOwner && (
-              <button
+              <Button
                 type='button'
                 onClick={handleDownload}
                 disabled={isDownloading}
                 className={styles['book-page-wrapper__upload']}
               >
                 {isDownloading ? 'downloading...' : 'download PDF'}
-              </button>
+              </Button>
             )}
           </div>
+
           <Button onClick={handleAddToList}>
             <div
               className={`${styles['book-page-wrapper__heart']} ${book.saved_at ? styles['book-page-wrapper__heart--active'] : ''}`}
@@ -176,29 +199,38 @@ export default function BookPage() {
               </span>
             ))}
           </div>
+          <div>Uploaded By {book.uploaded_by}</div>
 
           <div
+            style={{
+              maxHeight: isDescOpen
+                ? `${descHeight}px`
+                : `${Math.min(descHeight, 200)}px`,
+            }}
             className={`${styles['book-page-wrapper__desc-wrapper']} ${isDescOpen ? styles['book-page-wrapper__desc-wrapper--open'] : ''}`}
           >
             <div
-              className={`${styles['mask']} ${isDescOpen ? styles['mask--open'] : ''}`}
+              className={`${styles['mask']} ${isDescOpen || descHeight <= 200 ? styles['mask--open'] : ''}`}
             >
               <div
+                ref={descRef}
                 className={`${styles['book-page-wrapper__desc']} ${!isDescOpen ? `${styles['book-page-wrapper__desc--closed']}` : ''}`}
               >
                 {book.description}
               </div>
             </div>
-            <button
-              className={`${styles['read_more']} ${isDescOpen ? styles['read_more--open'] : ''}`}
-              onClick={() => setIsDescOpen(!isDescOpen)}
-            >
-              <span>{`read ${isDescOpen ? 'less' : 'more...'}`}</span>
-              <img
-                className={`${styles['read_more__arrow']}`}
-                src={`${import.meta.env.BASE_URL}icons/arrow-down.svg`}
-              />
-            </button>
+            {descHeight > 200 && (
+              <button
+                className={`${styles['read_more']} ${isDescOpen ? styles['read_more--open'] : ''}`}
+                onClick={() => setIsDescOpen(!isDescOpen)}
+              >
+                <span>{`read ${isDescOpen ? 'less' : 'more...'}`}</span>
+                <img
+                  className={`${styles['read_more__arrow']}`}
+                  src={`${import.meta.env.BASE_URL}icons/arrow-down.svg`}
+                />
+              </button>
+            )}
           </div>
         </div>
       </div>

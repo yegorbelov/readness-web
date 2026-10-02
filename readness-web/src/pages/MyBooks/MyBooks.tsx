@@ -1,11 +1,15 @@
 import { useAuth } from '@/contexts/AuthContext';
 import styles from './MyBooks.module.scss';
-import { getUserLibrary, removeBookFromLibrary } from '@/api/user_library';
+import {
+  getUserLibrary,
+  getUserUploads,
+  removeBookFromLibrary,
+} from '@/api/user_library';
 import type { Author, Book } from '@/types/book';
 import type { UserLibrary } from '@/types/user';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getUserUploads, removeBook } from '@/api/books';
+import { removeBook } from '@/api/books';
 import { publishBookRequest } from '@/api/book_requests';
 import { formatRelativeDate } from '@/utils/date';
 import Button from '@/components/ui/Button/Button';
@@ -125,29 +129,36 @@ export default function MyBooks() {
                   <div className={styles['content']}>
                     <div className={styles['title-wrapper']}>
                       <span className={styles['title']}>{book.title}</span>
+
                       <span className={styles['status']}>
                         {book.is_public ? 'Published' : 'Pending'}
                       </span>
                     </div>
 
-                    <span>{book.description}</span>
+                    <div className={styles.inner}>
+                      <span className={styles.description}>
+                        {book.description}
+                      </span>
 
-                    <div className={styles['actions']}>
-                      <Button
-                        onClick={(e) => handlePublishRequest(e, book.book_id)}
-                      >
-                        <span>Request Publication</span>
-                      </Button>
+                      <div className={styles.actions}>
+                        <Button
+                          onClick={(e) => handlePublishRequest(e, book.book_id)}
+                        >
+                          <span>Request Publication</span>
+                        </Button>
 
-                      <Button
-                        onClick={(e) => handleRemoveBook(e, book.book_id)}
-                      >
-                        <span>Remove book</span>
-                      </Button>
+                        <Button
+                          onClick={(e) => handleRemoveBook(e, book.book_id)}
+                        >
+                          <span>Remove book</span>
+                        </Button>
 
-                      <Button onClick={(e) => handleEditBook(e, book.book_id)}>
-                        <span>Edit</span>
-                      </Button>
+                        <Button
+                          onClick={(e) => handleEditBook(e, book.book_id)}
+                        >
+                          <span>Edit</span>
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </Link>

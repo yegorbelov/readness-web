@@ -72,6 +72,7 @@ export default function Header() {
               placeholder=' '
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              type='search'
             ></input>
             <span className={styles['header__search-placeholder']}>
               Search for books, authors, geners

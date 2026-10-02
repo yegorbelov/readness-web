@@ -12,16 +12,6 @@ export async function fetchBooks(params?: URLSearchParams): Promise<Book[]> {
   return response.json();
 }
 
-export async function fetchBookById(id: string): Promise<BookDetails> {
-  const response = await apiFetch(`/books/${id}`);
-
-  if (!response.ok) {
-    throw new Error('Book not found');
-  }
-
-  return response.json();
-}
-
 export async function createNewBook(
   data: CreateBookRequest,
 ): Promise<{ book_id: string }> {
@@ -40,22 +30,27 @@ export async function createNewBook(
   return response.json();
 }
 
-export async function uploadBookFile(
-  bookId: string,
-  file: File,
-): Promise<void> {
-  const formData = new FormData();
-
-  formData.append('file', file);
-
-  const response = await apiFetch(`/books/${bookId}/file`, {
-    method: 'PUT',
-    body: formData,
-  });
+export async function fetchBookById(id: string): Promise<BookDetails> {
+  const response = await apiFetch(`/books/${id}`);
 
   if (!response.ok) {
-    throw new Error('Failed to upload book file');
+    throw new Error('Book not found');
   }
+
+  return response.json();
+}
+
+export async function removeBook(id: string) {
+  const response = await apiFetch(`/books/${id}`, { method: 'DELETE' });
+  if (!response.ok) throw new Error('error');
+}
+
+export async function editBook(id: string, data) {
+  const response = await apiFetch(`/books/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) throw new Error('error');
 }
 
 export async function uploadBookCover(
@@ -73,29 +68,6 @@ export async function uploadBookCover(
   if (!response.ok) {
     throw new Error('Failed to upload book cover');
   }
-}
-
-export async function getUserUploads(): Promise<Book[]> {
-  const response = await apiFetch('/users/me/uploads');
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch user uploads');
-  }
-
-  return response.json();
-}
-
-export async function removeBook(id: string) {
-  const response = await apiFetch(`/books/${id}`, { method: 'DELETE' });
-  if (!response.ok) throw new Error('error');
-}
-
-export async function editBook(id: string, data) {
-  const response = await apiFetch(`/books/${id}`, {
-    method: 'PUT',
-    body: JSON.stringify(data),
-  });
-  if (!response.ok) throw new Error('error');
 }
 
 export async function downloadBookFile(bookId: string): Promise<void> {
@@ -118,4 +90,22 @@ export async function downloadBookFile(bookId: string): Promise<void> {
 
   link.remove();
   window.URL.revokeObjectURL(url);
+}
+
+export async function uploadBookFile(
+  bookId: string,
+  file: File,
+): Promise<void> {
+  const formData = new FormData();
+
+  formData.append('file', file);
+
+  const response = await apiFetch(`/books/${bookId}/file`, {
+    method: 'PUT',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to upload book file');
+  }
 }
