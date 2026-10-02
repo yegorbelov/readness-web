@@ -217,6 +217,9 @@ export default function BookPage() {
               maxHeight: isDescOpen
                 ? `${descHeight}px`
                 : `${Math.min(descHeight, 200)}px`,
+              height: isDescOpen
+                ? `${descHeight}px`
+                : `${Math.min(descHeight, 200)}px`,
             }}
             className={`${styles['book-page-wrapper__desc-wrapper']} ${isDescOpen ? styles['book-page-wrapper__desc-wrapper--open'] : ''}`}
           >
