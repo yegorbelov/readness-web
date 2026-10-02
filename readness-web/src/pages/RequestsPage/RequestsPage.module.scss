@@ -2,23 +2,116 @@
 @use '@/styles/mixins' as *;
 
 .admin-page {
+  min-height: 80vh;
   padding-top: 90px;
+
+  display: flex;
+  flex-direction: column;
+
   @include center;
-  min-height: 80svh;
+}
 
-  &__table {
-    width: 100%;
-    border-collapse: collapse;
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
 
-    th,
-    td {
-      text-align: left;
-      padding: 20px;
-      border-bottom: 1px solid #fff;
+.title {
+  margin: 0;
+
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 6px 0 0;
+
+  color: #888;
+  font-size: var(--font-size-md);
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 16px 0;
+
+    text-align: left;
+
+    border-bottom: 1px solid #ffffff12;
+  }
+
+  th {
+    color: #888;
+
+    font-size: var(--font-size-sm);
+  }
+
+  tbody tr {
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: #ffffff06;
     }
 
-    th {
-      font-weight: 600;
+    &:last-child td {
+      border-bottom: 0;
     }
   }
+}
+
+.request-id {
+  color: #888;
+  font-size: var(--font-size-sm);
+}
+
+.title-cell {
+  font-weight: 500;
+}
+
+.description {
+  display: block;
+  max-width: 400px;
+
+  overflow: hidden;
+
+  color: #aaa;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.author {
+  font-weight: 500;
+}
+
+.public,
+.private {
+  font-size: var(--font-size-sm);
+}
+
+.public {
+  color: #aaa;
+}
+
+.private {
+  color: #666;
+}
+
+.state {
+  min-height: 200px;
+
+  display: grid;
+  place-items: center;
+
+  color: #888;
 }

@@ -80,6 +80,8 @@ export default function MyBooks() {
     }, 200);
   }
 
+  console.log(uploadedBooks);
+
   return (
     <div className={styles['profile-page']}>
       <div className={styles['profile-page__tabs']}>
@@ -130,9 +132,7 @@ export default function MyBooks() {
                     <div className={styles['title-wrapper']}>
                       <span className={styles['title']}>{book.title}</span>
 
-                      <span className={styles['status']}>
-                        {book.is_public ? 'Published' : 'Pending'}
-                      </span>
+                      <span className={styles['status']}>{book.status}</span>
                     </div>
 
                     <div className={styles.inner}>
@@ -141,11 +141,15 @@ export default function MyBooks() {
                       </span>
 
                       <div className={styles.actions}>
-                        <Button
-                          onClick={(e) => handlePublishRequest(e, book.book_id)}
-                        >
-                          <span>Request Publication</span>
-                        </Button>
+                        {book.status === 'draft' && (
+                          <Button
+                            onClick={(e) =>
+                              handlePublishRequest(e, book.book_id)
+                            }
+                          >
+                            <span>Request Publication</span>
+                          </Button>
+                        )}
 
                         <Button
                           onClick={(e) => handleRemoveBook(e, book.book_id)}
@@ -153,9 +157,9 @@ export default function MyBooks() {
                           <span>Remove book</span>
                         </Button>
 
-                        <Button onClick={(e) => handleEditBook(e)}>
+                        {/* <Button onClick={(e) => handleEditBook(e)}>
                           <span>Edit</span>
-                        </Button>
+                        </Button> */}
                       </div>
                     </div>
                   </div>

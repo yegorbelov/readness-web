@@ -25,3 +25,11 @@
     }
   }
 }
+
+.field {
+  display: flex;
+
+  button {
+    flex-shrink: 0;
+  }
+}

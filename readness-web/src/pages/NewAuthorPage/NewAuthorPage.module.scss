@@ -3,8 +3,43 @@
 
 .new-author-page {
   padding-top: 90px;
+
   @include center;
+
   min-height: 80svh;
+  width: 768px;
+
+  &__content {
+    width: 100%;
+  }
+
+  &__header {
+    margin-bottom: 32px;
+
+    h1 {
+      margin: 6px 0 8px;
+
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    p {
+      margin: 0;
+
+      color: #6b7280;
+      font-size: 15px;
+    }
+  }
+
+  &__eyebrow {
+    color: #6b7280;
+
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
 
   &__form {
     display: flex;

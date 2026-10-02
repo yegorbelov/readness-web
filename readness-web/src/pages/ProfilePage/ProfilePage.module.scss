@@ -12,10 +12,40 @@
 
   @include center;
 
-  &__header {
+  &__profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 48px;
+  }
+
+  &__avatar {
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+
+    width: 96px;
+    height: 96px;
+    margin-bottom: 18px;
+
+    border-radius: 50%;
+
+    color: #fff;
+    background:
+      radial-gradient(circle at 30% 20%, #555 0%, transparent 45%),
+      radial-gradient(circle at 75% 80%, #333 0%, transparent 50%),
+      linear-gradient(145deg, #181818 0%, #292929 45%, #111 100%);
+
+    font-size: var(--font-size-4xl);
+    font-weight: 600;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
   }
 
   &__username {
@@ -23,33 +53,46 @@
     font-weight: 600;
   }
 
-  &__role {
-    border-radius: 6px;
-
-    color: #f33a3a;
+  &__email {
     font-size: var(--font-size-2xl);
+  }
 
-    text-transform: uppercase;
+  &__role {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+  }
+
+  &__role--admin {
+    color: #f33a3a;
+  }
+
+  &__role--moderator {
+    color: #d99a24;
   }
 
   &__actions {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    border-top: 1px solid #fff;
 
     width: 100%;
-    max-width: 280px;
+    max-width: 360px;
   }
 
-  &__link,
-  &__logout {
+  &__action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 100%;
-    padding: 12px 20px;
+    padding: 16px 18px;
 
     border: 0;
-    border-radius: 10px;
 
-    font-size: var(--font-size-4xl);
+    color: inherit;
+    background: transparent;
+
+    font-size: var(--font-size-3xl);
     font-weight: 500;
     text-align: center;
     text-decoration: none;
@@ -57,8 +100,22 @@
     cursor: pointer;
   }
 
+  &__arrow {
+    color: #666;
+    font-size: var(--font-size-2xl);
+
+    transition: transform 0.15s ease;
+  }
+
+  &__action:hover &__arrow {
+    transform: translateX(3px);
+  }
+
   &__logout {
     color: #888;
-    background: transparent;
+
+    &:hover {
+      color: #f33a3a;
+    }
   }
 }

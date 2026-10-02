@@ -124,8 +124,7 @@ export default function BookPage() {
 
   // const hasPdf = Boolean(book?.file_url);
 
-  if (!book || (!isPublic && book?.uploaded_by?.user_id !== user?.user_id))
-    return <></>;
+  if (!book) return <></>;
 
   const authors = book.authors ?? [];
 

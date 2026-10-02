@@ -31,6 +31,7 @@ export interface Book {
   uploaded_at?: string;
   uploaded_by?: User;
   saved_at?: string;
+  status?: string;
 }
 
 export interface BookDetails extends Book {

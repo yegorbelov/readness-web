@@ -34,7 +34,7 @@
     display: flex;
     gap: 30px;
     align-items: center;
-    border-bottom: #221a1a solid 1px;
+    border-bottom: #3d3030 solid 1px;
     height: 220px;
     overflow: hidden;
     opacity: 1;
@@ -65,6 +65,10 @@
     border-radius: 20px;
     flex-shrink: 0;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(#999, #333);
 
     img {
       object-fit: cover;
@@ -88,7 +92,7 @@
     font-size: var(--font-size-2xl);
     display: flex;
     gap: 30px;
-    border-bottom: #221a1a solid 1px;
+    border-bottom: #3d3030 solid 1px;
     height: 200px;
     overflow: hidden;
     opacity: 1;

@@ -146,36 +146,34 @@
     transition-property: scale, font-size, line-height;
     transition-duration: 0.3s;
 
-    position: sticky;
+    // position: sticky;
     top: 50px;
     // @include text;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     overflow: hidden;
-    &--stuck {
-      @include text;
-      // line-height: 1;
+    // &--stuck {
+    //   @include text;
+    //   // line-height: 1;
 
-      // scale: 0.5;
-      font-size: 48px;
-      text-shadow: $text-shadow-light;
-    }
+    //   // scale: 0.5;
+    //   font-size: 48px;
+    //   text-shadow: $text-shadow-light;
+    // }
   }
 
   &__desc-wrapper {
     position: relative;
     max-height: 100px;
     transition: max-height 0.4s ease;
+    width: 100%;
   }
 
   &__desc {
     font-family: 'Inika', serif;
     font-size: 32px;
     overflow: hidden;
-
-    &--closed {
-    }
   }
 }
 
@@ -219,6 +217,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
+  font-size: var(--font-size-2xl);
 
   span {
     display: inline;
