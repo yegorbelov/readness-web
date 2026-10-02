@@ -25,6 +25,11 @@
   &__content {
     display: flex;
     gap: 80px;
+
+    @media screen and (max-width: 1024px) {
+      flex-direction: column;
+      gap: 20px;
+    }
   }
 }
 
@@ -32,7 +37,7 @@
   display: flex;
   gap: 80px;
 
-  @media screen and (max-width: 576px) {
+  @media screen and (max-width: 1024px) {
     flex-direction: column;
     gap: 0;
   }

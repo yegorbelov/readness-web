@@ -2,19 +2,42 @@
 @use '@/styles/mixins' as *;
 
 .not-found-page {
-  padding-top: $safe-area-top;
   @include center;
+  padding-top: 90px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-size: 128px;
   min-height: 80vh;
   text-align: center;
-  flex-direction: column;
+
   overflow: hidden;
+  gap: 20px;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    font-size: 64px;
+    gap: 10px;
+  }
 }
 
 .home-page-link {
   font-size: 96px;
-  color: #893838;
+  color: #a83838;
+
+  @media (max-width: 1024px) {
+    font-size: 48px;
+  }
+}
+
+.image {
+  height: 600px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+  }
 }
