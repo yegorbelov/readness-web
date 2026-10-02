@@ -45,6 +45,7 @@ export default function BookPage() {
 
     return () => observer.disconnect();
   }, [book?.description]);
+
   async function handleUpload(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
 
