@@ -112,7 +112,7 @@ export default function BookPage() {
     } else {
       addBookToLibrary(id).then(() => {
         setBook((prev) =>
-          prev ? { ...prev, saved_at: '', library_id: '' } : prev,
+          prev ? { ...prev, saved_at: '1', library_id: '1' } : prev,
         );
       });
     }
