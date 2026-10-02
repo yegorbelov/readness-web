@@ -1,6 +1,7 @@
 import styles from './Footer.module.scss';
 import FooterColumns from './FooterColumns';
 import type { FooterColumn } from '@/types/footer';
+import { images } from '@/constants/images';
 
 export default function Footer() {
   const columns = [
@@ -35,14 +36,20 @@ export default function Footer() {
   return (
     <div className={styles['footer-wrapper']}>
       <div className={styles['footer']}>
-        <div className={styles['columns']}>
-          {columns.map((column: FooterColumn) => (
-            <FooterColumns
-              key={column.id}
-              title={column.title}
-              links={column.links}
-            />
-          ))}
+        <div className={styles['footer__content']}>
+          <div className={styles['logo-wrapper']}>
+            <img src={images.logo} />
+            <span>Readness</span>
+          </div>
+          <div className={styles['columns']}>
+            {columns.map((column: FooterColumn) => (
+              <FooterColumns
+                key={column.id}
+                title={column.title}
+                links={column.links}
+              />
+            ))}
+          </div>
         </div>
         <div className={styles['copyright']}>
           Copyright © {new Date().getFullYear()} Readness All rights reserved.

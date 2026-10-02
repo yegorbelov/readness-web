@@ -11,7 +11,7 @@
   backdrop-filter: blur(10px);
   display: flex;
   justify-content: center;
-  padding: 20px 0px;
+  padding: 30px 0px;
   border-top: 1px solid #313131;
 }
 
@@ -21,6 +21,11 @@
   max-width: 1440px;
   gap: 20px;
   @include center;
+
+  &__content {
+    display: flex;
+    gap: 80px;
+  }
 }
 
 .columns {
@@ -31,4 +36,29 @@
     flex-direction: column;
     gap: 0;
   }
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  height: fit-content;
+
+  img {
+    height: 75px;
+    max-width: 75px;
+    width: auto;
+    min-width: 0;
+  }
+
+  span {
+    font-size: var(--font-size-3xl);
+    text-shadow: 0 4px 10px #000;
+    min-width: 0;
+  }
+}
+
+.copyright {
+  align-self: flex-end;
 }
