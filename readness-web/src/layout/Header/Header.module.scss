@@ -138,15 +138,37 @@
   gap: 20px;
   color: inherit;
   text-decoration: none;
+  overflow: hidden;
 
-  span {
+  img {
+    height: 70px;
+    width: 70px;
+    flex: 0 0 70px;
+    object-fit: cover;
+  }
+
+  > div {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  > div > span {
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  img {
-    height: 70px;
+  > div > div {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  > div > div span {
+    white-space: nowrap;
   }
 }
 
