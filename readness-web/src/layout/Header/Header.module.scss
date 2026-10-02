@@ -142,9 +142,8 @@
 
   img {
     height: 70px;
-    width: 70px;
-    flex: 0 0 70px;
-    object-fit: cover;
+    width: 50px;
+    object-fit: contain;
   }
 
   > div {
