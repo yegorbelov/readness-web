@@ -18,6 +18,13 @@ export default function BookPage() {
   const [isUploading, setIsUploading] = useState(false);
   const descRef = useRef<HTMLDivElement>(null);
   const [descHeight, setDescHeight] = useState(0);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  function handleUploadClick() {
+    if (isUploading) return;
+
+    fileInputRef.current?.click();
+  }
 
   useEffect(() => {
     const element = descRef.current;
@@ -155,19 +162,23 @@ export default function BookPage() {
           </div>
 
           <div className={styles['book-page-wrapper__pdf-wrapper']}>
-            <label
+            <Button
+              type='button'
               className={styles['book-page-wrapper__upload']}
-              aria-disabled={isUploading}
+              disabled={isUploading}
+              onClick={handleUploadClick}
             >
               <span>{isUploading ? 'uploading...' : 'upload PDF'}</span>
+            </Button>
 
-              <input
-                type='file'
-                accept='application/pdf,.pdf'
-                onChange={handleUpload}
-                disabled={isUploading}
-              />
-            </label>
+            <input
+              ref={fileInputRef}
+              type='file'
+              accept='application/pdf,.pdf'
+              onChange={handleUpload}
+              disabled={isUploading}
+              hidden
+            />
             {isOwner && (
               <Button
                 type='button'
